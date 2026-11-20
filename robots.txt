@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aivodesign.site/sitemap.xml

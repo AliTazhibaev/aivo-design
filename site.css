@@ -1,0 +1,48 @@
+/* Aivo Design — общий стиль сайта. Светлая «роспись»: тёплый фон, графитовые чернила, цвет только у приложений. */
+:root{
+  --bg:#F2F2F0; --surface:#E6E6E3; --ink:#1C1917; --muted:#57534E; --paper:#FFFFFF;
+  --scan:#00D4AA; --diary:#4A90E2; --quran:#0B3324; --gold:#D9B45F; --pro:#1F1F23; --cut:#E2703A;
+  --font:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --m:clamp(16px,3.2vw,48px);
+  --s-sm:15px; --s-body:17px; --s-h3:clamp(32px,3.4vw,48px); --s-h2:clamp(44px,5.6vw,84px); --s-h1:clamp(46px,6.6vw,108px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:var(--s-body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.035em;line-height:.98;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
+::selection{background:var(--ink);color:var(--bg)}
+.skip{position:absolute;left:-9999px}.skip:focus{left:var(--m);top:8px;z-index:50;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px}
+.sig{display:block;fill:currentColor}
+
+/* Кнопки: одна форма на весь сайт — полная капсула */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:52px;padding:0 26px;border-radius:999px;background:var(--ink);color:var(--bg);font:600 var(--s-body)/1 var(--font);text-decoration:none;border:0;cursor:pointer;transition:transform .2s var(--ease),background-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.light{background:var(--bg);color:var(--ink)}
+.link{font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;transition:text-underline-offset .2s}
+.link:hover{text-underline-offset:8px}
+
+/* Шапка */
+.nav{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px);padding:18px var(--m);position:relative;z-index:5}
+.wm{display:flex;align-items:center;gap:10px;margin-right:auto;font-weight:700;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.wm .sig{width:44px;height:44px;margin:-6px}
+.nav a.nl{text-decoration:none;font-weight:500;padding:12px 0;position:relative}
+.nav a.nl::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.nav a.nl:hover::after{transform:scaleX(1)}
+.nav .btn{min-height:46px;padding:0 20px}
+@media (max-width:760px){.nav a.nl{display:none}.nav .btn{padding:0 16px;font-size:15px}}
+
+/* Появление частей разделов (контент виден и без скрипта) */
+.js .rise{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i,0)*80ms)}
+.js .rise.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rise{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aivo Quran — хатм вместе с близкими</title>
+<meta name="description" content="Группа делит 30 джузов, каждый читает свой — и Коран прочитан целиком. Приложение Aivo Design.">
+<meta property="og:title" content="Aivo Quran — хатм вместе с близкими">
+<meta property="og:description" content="Группа делит 30 джузов, каждый читает свой — и Коран прочитан целиком. Приложение Aivo Design.">
+<meta property="og:image" content="https://aivodesign.site/img/og-quran.jpg">
+<meta name="theme-color" content="#0B3324">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../fonts/onest.css">
+<link rel="stylesheet" href="../site.css?v=3">
+<style>
+:root{--bg:#0B3324;--ink:#EBDDB0;--muted:#B9C7B5;--surface:#134430}
+.doc{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);padding:clamp(40px,6vw,96px) var(--m) clamp(96px,10vw,160px)}
+.doc>header{grid-column:1/-1;margin-bottom:clamp(40px,5vw,72px)}
+.doc h1{font-size:clamp(40px,6vw,96px);font-weight:800;letter-spacing:-.045em;line-height:.95;max-width:12em}
+.doc .sub{font-size:21px;line-height:1.45;margin-top:24px;max-width:36em}
+.toc{grid-column:1/4;position:sticky;top:32px;align-self:start;display:grid;gap:8px;font-size:15px}
+.toc a{text-decoration:none;color:var(--muted)}.toc a:hover{color:var(--ink);text-decoration:underline}
+.txt{grid-column:5/12;font-size:18px;line-height:1.6}
+.txt h2{font-size:clamp(26px,2.4vw,34px);letter-spacing:-.03em;margin:56px 0 16px;scroll-margin-top:24px}
+.txt h2:first-child{margin-top:0}
+.txt p,.txt ul{margin:0 0 14px;max-width:62ch}
+.txt ul{padding-left:1.2em}.txt li{margin-bottom:6px}
+.txt a{text-decoration:underline;text-underline-offset:3px}
+.txt .box{background:var(--surface);padding:24px 28px;border-radius:8px;margin:0 0 24px;max-width:62ch}
+.mini{background:var(--ink);color:var(--bg);padding:40px var(--m) 32px;display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;font-size:15px}
+.mini a{color:inherit}
+@media (max-width:899px){.toc{display:none}.txt{grid-column:1/-1}}
+.phone-frame{--pw:calc(var(--h)*0.455);--sw:calc(var(--pw) - 14px);position:relative;width:var(--pw);padding:2.5px;border-radius:calc(var(--sw)*.125 + 7px);background:linear-gradient(135deg,#9da2aa 0%,#4a4e55 14%,#d6d9de 30%,#5b5f66 48%,#2e3136 66%,#a9adb4 86%,#60646b 100%);box-shadow:0 60px 100px -40px rgba(0,0,0,.55),0 24px 48px rgba(0,0,0,.22)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-bezel{padding:4.5px;border-radius:calc(var(--sw)*.125 + 4.5px);background:#000;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-screen{position:relative;border-radius:calc(var(--sw)*.125);overflow:hidden;background:#000}
+.pf-screen::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 30%)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.phone-frame .shots{aspect-ratio:440/956;position:relative}
+.phone-frame .shots>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phone-island{position:absolute;z-index:3;top:calc(var(--sw)*.025);left:50%;width:calc(var(--sw)*.286);height:calc(var(--sw)*.084);transform:translateX(-50%);border-radius:99px;background:#000}
+.pf-status{position:absolute;z-index:3;left:0;right:0;top:calc(var(--sw)*.025);height:calc(var(--sw)*.084);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--sw)*.085) 0 calc(var(--sw)*.11);color:#fff;font:600 calc(var(--sw)*.039)/1 var(--font);letter-spacing:-.01em}
+.pf-status i{display:flex;align-items:center;gap:calc(var(--sw)*.014)}
+.pf-status svg{height:calc(var(--sw)*.03);width:auto}.pf-status svg.bat{height:calc(var(--sw)*.034)}
+.pf-home{position:absolute;z-index:3;left:50%;bottom:calc(var(--sw)*.018);transform:translateX(-50%);width:calc(var(--sw)*.32);height:calc(var(--sw)*.012);border-radius:99px;background:rgba(255,255,255,.85)}
+.phone-frame.lt .pf-status{color:#111}.phone-frame.lt .pf-home{background:rgba(0,0,0,.8)}
+.pf-btn{position:absolute;width:3px;border-radius:2px;background:linear-gradient(90deg,#4f535a,#b4b8bf 60%,#6b6f76)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-btn.l{left:-2px}.pf-btn.r{right:-2px;background:linear-gradient(90deg,#6b6f76,#b4b8bf 40%,#4f535a)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-action{top:17%;height:4.2%}.pf-vol1{top:24%;height:7.5%}.pf-vol2{top:33%;height:7.5%}.pf-side{top:26%;height:11%}.pf-cam{top:57%;height:6.5%;background:linear-gradient(90deg,#2a2d31,#6d7178)!important} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.ui{position:absolute;inset:0;font-size:calc(var(--sw)*.04)}
+.ui{font-family:var(--font);line-height:1.3;padding:17% 7% 9%;display:flex;flex-direction:column;gap:9px;text-align:left}
+.ui .t{font-size:1.5em;font-weight:700;letter-spacing:-.03em}
+.ui .m{opacity:.7}
+.ui ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ui li{display:flex;justify-content:space-between;align-items:center;gap:8px;border-radius:12px;padding:9px 11px}
+.ui-diary{background:#F4F7FB;color:#14223A}
+.ui-diary .sum{font-size:2.2em;font-weight:700;letter-spacing:-.04em}
+.ui-diary .today{color:#C2410C;font-weight:600}
+.ui-diary .say{background:#2F6FBF;color:#fff;border-radius:14px 14px 4px 14px;padding:10px 12px;align-self:flex-end;max-width:88%}
+.ui-diary li{background:#fff}.ui-diary .plus{color:#15803D;font-weight:600}
+.ui-diary .mic{margin-top:auto;align-self:center;width:54px;height:54px;border-radius:50%;background:#4A90E2;display:grid;place-items:center}
+.ui-diary .mic i{width:12px;height:20px;border-radius:6px;background:#fff;display:block}
+.ui-quran{background:#0B3324;color:#EBDDB0}
+.ui-quran .ic{width:64px;height:64px;border-radius:22.5%;align-self:center;margin:4px 0}
+.ui-quran .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.ui-quran .grid i{aspect-ratio:1;border-radius:6px;background:#164A36;display:grid;place-items:center;font-style:normal;font-size:10.5px;color:#9FB8A8}
+.ui-quran .grid i.d{background:#D9B45F;color:#0B3324;font-weight:600}
+.ui-quran .grid i.me{background:#EBDDB0;color:#0B3324;font-weight:700}
+.ui-quran .bt{margin-top:auto;background:#D9B45F;color:#0B3324;border-radius:999px;text-align:center;padding:11px;font-weight:700}
+.ui-pro{background:#F2F2F0;color:#1F1F23}
+.ui-pro li{background:#fff;flex-direction:column;align-items:stretch;gap:6px}
+.ui-pro li div{display:flex;justify-content:space-between;gap:8px}
+.ui-pro .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.ui-pro .bar i{height:5px;border-radius:3px;background:#DADAD6}
+.ui-pro .bar i.d{background:#1F1F23}
+.ui-pro .sumrow{margin-top:auto;background:#1F1F23;color:#F2F2F0;border-radius:12px;padding:11px;display:flex;justify-content:space-between;gap:8px}
+.ui-pro .sumrow .m{opacity:.75}
+.ui-pro .ok{color:#15803D;font-weight:600}.ui-pro .late{color:#B91C1C;font-weight:600}
+.ui-cut{background:#1E1410;color:#FFFFFF}
+.ui-cut li{background:#2D1F18}
+.ui-cut .st{border-radius:999px;padding:3px 8px;font-size:11px;font-weight:600;white-space:nowrap}
+.ui-cut .st.go{background:#E2703A;color:#1F0D04}.ui-cut .st.q{background:#3E2C22;color:#FFFFFF}.ui-cut .st.ok{background:#F6E7DD;color:#1F0D04}
+.ui-cut .mach{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ui-cut .mach div{background:#E2703A;color:#1F0D04;border-radius:12px;padding:10px 11px;font-weight:600}
+.ui-cut .mach div:last-child{background:#3E2C22;color:#FFFFFF}
+@keyframes uin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes uout{to{opacity:0;transform:translateY(-6px)}}
+@keyframes gold{0%{background:#EBDDB0;transform:scale(1)}45%{transform:scale(1.28)}100%{background:#D9B45F;transform:scale(1)}}
+@keyframes press{50%{transform:scale(.94)}}
+.ui .sw2{display:inline-grid}.ui .sw2>span{grid-area:1/1}
+html:not(.js) .ui .sw2 .a{visibility:hidden}
+.js .ui .sw2 .b{opacity:0}
+.js .ui.play .sw2 .a{animation:uout .35s var(--ease) forwards;animation-delay:var(--d,1.4s)}
+.js .ui.play .sw2 .b{animation:uin .45s var(--ease) forwards;animation-delay:calc(var(--d,1.4s) + .2s)}
+.js .ui .pop{opacity:0}
+.js .ui.play .pop{animation:uin .5s var(--ease) forwards;animation-delay:var(--d,.4s)}
+.js .ui-pro .bar i.d{transform:scaleX(0);transform-origin:left}
+.js .ui-pro.play .bar i.d{animation:bar .5s var(--ease) forwards;animation-delay:calc(.2s + var(--n,0)*.1s)}
+.js .ui-quran.play .grid i.me{animation:gold .8s var(--ease) 1s forwards}
+.js .ui-quran.play .bt{animation:press .3s ease .7s}
+.js .ui-cut.play .mach .m2{animation:m2 .4s var(--ease) 1.4s forwards}
+.qh{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,72px);align-items:center;padding:clamp(32px,5vw,80px) var(--m) clamp(80px,9vw,140px)}
+.qh .ic{width:clamp(96px,9vw,140px);height:auto;border-radius:22.5%}
+.qh h1{font-size:clamp(56px,8vw,140px);font-weight:800;letter-spacing:-.05em;line-height:.9;margin-top:32px}
+.qh .lead{font-size:clamp(20px,1.7vw,24px);line-height:1.45;margin-top:28px;max-width:28em}
+.qh .st{margin-top:28px;font-size:17px;color:var(--muted)}
+.qh .acts{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin-top:32px}
+.qh .btn{background:#D9B45F;color:#0B3324}
+.qh .ph{--h:min(78svh,700px);height:var(--h);display:grid;place-items:center}
+.feat{background:#F2F2F0;color:#1C1917;padding:clamp(96px,10vw,160px) var(--m);display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);row-gap:clamp(48px,5vw,80px)}
+.feat>h2{grid-column:1/-1;font-size:clamp(44px,5.6vw,84px);letter-spacing:-.045em}
+.feat dl{grid-column:1/-1;margin:0;display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);row-gap:clamp(40px,4vw,64px)}
+.feat dt{grid-column:1/6;font-size:clamp(30px,3.2vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1;color:#0B3324}
+.feat dd{grid-column:7/13;margin:0;font-size:20px;line-height:1.5}
+.icons{padding:clamp(96px,10vw,160px) var(--m) 0;display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);row-gap:24px}
+.icons h2{grid-column:1/-1;font-size:clamp(44px,5.6vw,84px);letter-spacing:-.045em}
+.icons>p{grid-column:1/8;font-size:21px;line-height:1.45}
+.icons .row{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,48px);margin-top:32px}
+.icons figure{margin:0;display:grid;gap:14px;justify-items:center;background:#134430;padding:clamp(24px,4vw,64px) 16px}
+.icons figure:nth-child(2){background:#06140E}.icons figure:nth-child(3){background:#2A2A2A}
+.icons img{width:min(100%,220px);border-radius:22.5%}
+.icons figcaption{font-size:17px}
+.qcta{padding:clamp(96px,10vw,160px) var(--m);display:grid;gap:28px;justify-items:start}
+.qcta h2{font-size:clamp(44px,5.6vw,84px);letter-spacing:-.045em}
+.qcta p{font-size:21px;line-height:1.45;max-width:30em}
+.qcta .btn{background:#D9B45F;color:#0B3324}
+@media (max-width:899px){.icons>p{grid-column:1/-1}.icons .row{grid-template-columns:1fr 1fr 1fr;gap:10px}.qh{grid-template-columns:1fr}.feat dt,.feat dd{grid-column:1/-1}.feat dd{margin-top:-28px}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="s" viewBox="0 0 8700 8700"><path d="M2339.9 5489.79c-333.52,-32.36 -450.83,-328.7 -451.41,-624.26 -0.57,-294.59 94.98,-628.82 199.79,-902.37 110.71,-288.96 262.98,-593.8 450.24,-840.36 152.12,-200.31 395.49,-446.38 674.04,-375.31 253.6,64.71 380.2,289.78 448.8,524.73 20.22,69.21 36.52,140.79 50.2,213.53 178.41,-276.93 347.43,-559.98 506.08,-841.45 58.7,-104.17 191.52,-141.24 295.69,-82.54 104.15,58.7 141.23,191.52 82.52,295.69 -243.58,432.18 -511.97,869.85 -800.72,1284.06 29.21,254.25 95.5,690.69 259.22,728.74 2.78,0.66 5.17,1.25 7.95,2.02 161.88,44.12 423.31,-45.81 571.63,-107.32 281.93,-116.9 559.63,-287.18 807.16,-464.88 15.48,-11.12 30.99,-22.36 46.49,-33.7 -63,-48.65 -125.6,-97.69 -185.87,-149.39 -135.52,-116.24 -272.88,-261.35 -272.85,-451.58 -11.01,-379.36 431.71,-628.72 744.51,-726.93 326.76,-102.6 838.43,-139.85 1006.31,237.3 151.79,323.84 -251.72,777.43 -609.06,1096.33 311.85,307.43 507.92,671.38 439.54,1142.57 -1.55,10.67 -3.5,19.66 -6.52,30 -268.69,914.98 -1598.05,751.73 -2304.44,617.67 -117.48,-22.29 -195.09,-136.28 -172.8,-253.74 22.31,-117.46 136.28,-195.07 253.74,-172.79 420.77,79.86 1612.55,279.84 1802.56,-299.33 42.04,-332.72 -125.11,-576.84 -349.3,-786.75 -15.24,11.64 -29.49,22.39 -42.63,32.24 -427.47,320.28 -1278.98,859.23 -1838.76,710.2 -301.94,-72.41 -442.03,-356.62 -515.96,-662.72 -162.76,208.89 -343.97,425.59 -540.96,601.8 -145.24,129.92 -348.41,282.24 -555.19,258.53zm3496.82 -1502.24c101.78,-89.15 199.2,-182.63 288.45,-279.48 55.85,-60.56 233.79,-268.04 252.65,-363.67 -22.01,-25.32 -84.75,-36 -110.1,-39.01 -116.08,-13.78 -253.74,12.58 -364.31,47.27 -118.61,37.25 -247.95,96.82 -344.49,175.92 -24.71,20.25 -97.61,88.19 -96.08,124.8 0.07,1.67 0.1,3.24 0.14,4.8 19.47,46.35 140.34,145.82 176.21,174.74 65.33,52.7 131.62,103.42 197.53,154.62zm-2490.85 36.95c-18.34,-175.36 -74.68,-795.87 -233.47,-854.14 -83.3,19.83 -241.72,230.74 -284.16,292.91 -149.63,219.28 -272.55,479.23 -362.05,729.42 -73.18,204.52 -150.1,477.25 -143.17,696 1.37,43.65 8.02,116.4 32.1,154.54 7.6,12.02 12.88,13.19 27.59,14.53 0.38,0.05 0.75,0.07 1.1,0.1 67.32,-10.94 222.09,-149.14 268.11,-192.92 178.35,-169.6 342.72,-372.23 492.03,-567.56 68.32,-89.39 135.66,-180.46 201.91,-272.88z"/></symbol></svg>
+<header class="nav">
+  <a class="wm" href="../" aria-label="Aivo Design, на главную"><svg class="sig" aria-hidden="true"><use href="#s"/></svg>Aivo Design</a>
+  <a class="nl" href="../#apps">Приложения</a>
+  <a class="nl" href="../#contact">Связаться</a>
+  <a class="btn" href="https://wa.me/996990551884">Написать</a>
+</header>
+<main>
+<section class="qh" aria-labelledby="qh1">
+  <div>
+    <img class="ic" src="../img/quran-icon.jpg" width="600" height="600" alt="Иконка Aivo Quran: золотая роза на тёмно-зелёном">
+    <h1 id="qh1" class="rise">Aivo Quran</h1>
+    <p class="lead rise" style="--i:1">Хатм вместе с близкими. Группа делит 30 джузов, каждый читает свой — и Коран прочитан целиком.</p>
+    <p class="st">Готовится к выпуску в App Store и Google Play.</p>
+    <div class="acts"><a class="btn" href="https://wa.me/996990551884?text=%D0%A1%D0%BE%D0%BE%D0%B1%D1%89%D0%B8%D1%82%D0%B5%2C%20%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0%20%D0%B2%D1%8B%D0%B9%D0%B4%D0%B5%D1%82%20Aivo%20Quran">Сообщить о выходе</a><a class="link" href="privacy.html">Конфиденциальность</a></div>
+  </div>
+  <div class="ph" aria-hidden="true"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-quran" data-ui>
+          <span class="m">Хатм семьи · 8 человек</span>
+          <img class="ic" src="../img/quran-icon.jpg" width="600" height="600" alt="" loading="lazy">
+          <span class="t"><span class="sw2" style="--d:1.5s"><span class="a">Прочитано 17 из 30</span><span class="b">Прочитано 18 из 30</span></span></span>
+          <span class="grid"><i class="d">1</i><i class="d">2</i><i class="d">3</i><i class="d">4</i><i class="d">5</i><i class="d">6</i><i class="d">7</i><i class="d">8</i><i class="d">9</i><i class="d">10</i><i class="d">11</i><i class="d">12</i><i class="d">13</i><i class="d">14</i><i class="d">15</i><i class="d">16</i><i class="d">17</i><i class="me">18</i><i class="">19</i><i class="">20</i><i class="">21</i><i class="">22</i><i class="">23</i><i class="">24</i><i class="">25</i><i class="">26</i><i class="">27</i><i class="">28</i><i class="">29</i><i class="">30</i></span>
+          <span class="m"><span class="sw2" style="--d:1.5s"><span class="a">Ваш джуз — 18. Осталось 13.</span><span class="b">Джуз 18 засчитан. Осталось 12.</span></span></span>
+          <span class="bt">Закончил джуз</span>
+        </span></div></div></div></div></div>
+</section>
+<section class="feat" aria-labelledby="fh">
+  <h2 id="fh">Что внутри</h2>
+  <dl>
+    <dt class="rise">Хатм группой</dt><dd class="rise" style="--i:1">Создайте группу для семьи, друзей или джамаата и отправьте ссылку. Каждый берёт свой джуз и отмечает «Закончил» — можно читать и по бумажному Корану.</dd>
+    <dt class="rise">Роза хатма</dt><dd class="rise" style="--i:1">Тридцать лепестков — тридцать джузов. Видно, сколько прочитано и чей джуз ещё открыт.</dd>
+    <dt class="rise">Свой хатм</dt><dd class="rise" style="--i:1">Каждый прочитанный джуз засчитывается и группе, и вам. Соберите все тридцать — и личный хатм завершён.</dd>
+    <dt class="rise">Умная главная</dt><dd class="rise" style="--i:1">Утром, днём и вечером — своё: дуа, зикр по вашему выбору, после 21:00 — аяты перед сном, в пятницу — сура аль-Кахф.</dd>
+    <dt class="rise">Чтение и аудио</dt><dd class="rise" style="--i:1">Читалка внутри приложения и чтение по аяту, чтобы проверить себя.</dd>
+    <dt class="rise">Время намаза</dt><dd class="rise" style="--i:1">По вашему городу; аср — по ханафитскому или шафиитскому мазхабу, на выбор.</dd>
+  </dl>
+</section>
+<section class="icons" aria-labelledby="ih">
+  <h2 id="ih" class="rise">Роза на любом экране</h2>
+  <p class="rise" style="--i:1">Иконка подстраивается под тему телефона: обычная, тёмная и тонированная.</p>
+  <div class="row">
+    <figure class="rise"><img src="../img/quran-icon.jpg" width="600" height="600" alt="Иконка Aivo Quran, обычная" loading="lazy"><figcaption>Обычная</figcaption></figure>
+    <figure class="rise" style="--i:1"><img src="../img/quran-icon-dark.png" width="480" height="480" alt="Иконка Aivo Quran в тёмной теме" loading="lazy"><figcaption>Тёмная</figcaption></figure>
+    <figure class="rise" style="--i:2"><img src="../img/quran-icon-tinted.png" width="480" height="480" alt="Тонированная иконка Aivo Quran" loading="lazy"><figcaption>Тонированная</figcaption></figure>
+  </div>
+</section>
+<section class="qcta" aria-labelledby="ch">
+  <h2 id="ch">Узнать первым</h2>
+  <p>Напишите в WhatsApp — сообщу, когда Aivo Quran появится в магазинах.</p>
+  <a class="btn" href="https://wa.me/996990551884?text=%D0%A1%D0%BE%D0%BE%D0%B1%D1%89%D0%B8%D1%82%D0%B5%2C%20%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0%20%D0%B2%D1%8B%D0%B9%D0%B4%D0%B5%D1%82%20Aivo%20Quran">Написать в WhatsApp</a>
+</section>
+<script>document.documentElement.classList.add('js');
+(function(){var els=document.querySelectorAll('.rise');if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(e){io.observe(e)});addEventListener('scroll',function(){els.forEach(function(e){if(!e.classList.contains('in')&&e.getBoundingClientRect().top<innerHeight)e.classList.add('in')})},{passive:true})})();
+setTimeout(function(){var u=document.querySelector('.ui');if(u&&!matchMedia('(prefers-reduced-motion: reduce)').matches)u.classList.add('play');else if(u)u.classList.add('play')},600)</script>
+</main>
+<footer class="mini"><span>© 2026 Aivo Design · Али Тажибаев</span><span><a href="../">aivodesign.site</a> · <a href="../diary/privacy.html">Конфиденциальность Aivo Diary</a> · <a href="../quran/privacy.html">Конфиденциальность Aivo Quran</a></span></footer>
+</body>
+</html>

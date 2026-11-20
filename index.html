@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aivo Design — приложения Али Тажибаева</title>
+<meta name="description" content="Aivo Design — семья приложений с одной росписью: Aivo Scan (мебель в 3D по QR-коду), Aivo Diary (деньги голосом), Aivo Quran (хатм с близкими), Aivo Pro и Aivo Cut.">
+<meta property="og:title" content="Aivo Design — одна роспись, пять приложений">
+<meta property="og:description" content="Приложения для мебельных цехов, для своих денег и для чтения Корана вместе.">
+<meta property="og:image" content="https://aivodesign.site/img/og.jpg">
+<meta property="og:url" content="https://aivodesign.site/">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:type" content="website"><meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://aivodesign.site/">
+<meta name="theme-color" content="#F2F2F0">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/onest.css">
+<link rel="stylesheet" href="site.css?v=3">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+/* ── Первый экран: слова слева, справа веер из пяти квадратов-приложений */
+.hero{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,72px);align-items:center;padding:clamp(32px,5vw,80px) var(--m) clamp(72px,8vw,128px)}
+.hero h1{font-size:clamp(42px,6.4vw,112px);font-weight:800;letter-spacing:-.045em;line-height:.92}
+.hero h1 span{display:block}
+.hero .lead{font-size:21px;line-height:1.45;max-width:30em;margin-top:36px}
+.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:40px}
+.hero .nums{display:grid;grid-template-columns:repeat(3,max-content);gap:20px clamp(28px,4vw,64px);margin-top:clamp(48px,6vw,88px)}
+.hero .nums p{display:grid;gap:4px;font-size:var(--s-sm);color:var(--muted)}
+.hero .nums b{font-size:clamp(32px,3.2vw,48px);font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.tilebox{justify-self:end;width:min(100%,540px)}
+.deck{position:relative;width:84%;aspect-ratio:1;margin:13% 0 0 0}
+.tile{position:absolute;inset:0;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;transition:transform .8s var(--ease);will-change:transform}
+.tile .sig{width:100%;height:100%}
+.tile[data-p="0"]{transform:none;z-index:5}
+.tile[data-p="1"]{transform:translate(5%,-4%) rotate(5deg) scale(.95);z-index:4}
+.tile[data-p="2"]{transform:translate(10%,-8%) rotate(10deg) scale(.9);z-index:3}
+.tile[data-p="3"]{transform:translate(14%,-11%) rotate(14deg) scale(.85);z-index:2}
+.tile[data-p="4"]{transform:translate(18%,-14%) rotate(18deg) scale(.8);z-index:1}
+.tile[data-p="0"] .sig use{clip-path:inset(0 0 0 0)}
+.js .tile[data-p="0"].draw .sig use{animation:draw 1.4s cubic-bezier(.6,0,.2,1) both}
+@keyframes draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.picker{display:flex;justify-content:space-between;gap:10px;margin-top:28px}
+.picker button{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;padding:6px 0;font:500 var(--s-sm)/1.2 var(--font);color:var(--muted);cursor:pointer;border-radius:12px}
+.picker .sw{width:100%;max-width:60px;aspect-ratio:1;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;transition:transform .25s var(--ease)}
+.picker .sw .sig{width:100%;height:100%}
+.picker button:hover .sw{transform:translateY(-3px)}
+.picker button[aria-pressed=true]{color:var(--ink);font-weight:600}
+.picker button[aria-pressed=true] .sw{transform:scale(1.1)}
+.tilecap{margin-top:24px;font-size:var(--s-body);min-height:1.6em;text-align:center}
+.tilecap b{font-weight:600}
+
+/* ── Бегущая лента с названиями */
+.band{background:var(--ink);overflow:hidden;padding:clamp(20px,2.4vw,36px) 0}
+.track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.band:hover .track{animation-play-state:paused}
+.track span{display:inline-flex;align-items:center;gap:.28em;padding-right:.9em;font-size:clamp(40px,6.4vw,104px);font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;color:var(--c)}
+.track .sq{width:.82em;height:.82em;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;flex:none}
+.track .sq .sig{width:100%;height:100%}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ── Приложения: весь раздел перекрашивается в цвет приложения, телефон держится слева */
+.apps{--ab:var(--scan);--ai:#04231C;--bb:#04231C;--bi:var(--scan);background:var(--ab);color:var(--ai);padding:clamp(72px,8vw,128px) var(--m) clamp(72px,8vw,120px);transition:background-color .7s var(--ease),color .7s var(--ease)}
+html:not(.js) .apps{--ab:var(--bg);--ai:var(--ink);--bb:var(--ink);--bi:var(--bg)}
+.apps>h2{font-size:var(--s-h2);margin-bottom:clamp(40px,5vw,72px)}
+.run{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px)}
+.frame{display:none}
+.steps{grid-column:1/-1;display:flex;flex-direction:column;gap:112px}
+.step h3{font-size:clamp(52px,6.4vw,112px);font-weight:800;letter-spacing:-.05em;line-height:.92}
+.step .what{font-size:21px;line-height:1.45;margin-top:24px;max-width:25em}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;margin:32px 0 0;font-size:var(--s-sm)}
+.facts dt{opacity:.72}.facts dd{margin:0;font-weight:500}
+.step .go{margin-top:32px;display:inline-flex}
+.step .btn{background:var(--bb);color:var(--bi)}
+.step .link{color:inherit}
+.fig{--h:min(78svh,700px);height:var(--h);display:grid;place-items:center;margin:0 0 40px;position:relative}
+html:not(.js) .fig{background:var(--c);padding:24px 0}
+.phone-frame{--pw:calc(var(--h)*0.455);--sw:calc(var(--pw) - 14px);position:relative;width:var(--pw);padding:2.5px;border-radius:calc(var(--sw)*.125 + 7px);background:linear-gradient(135deg,#9da2aa 0%,#4a4e55 14%,#d6d9de 30%,#5b5f66 48%,#2e3136 66%,#a9adb4 86%,#60646b 100%);box-shadow:0 60px 100px -40px rgba(0,0,0,.55),0 24px 48px rgba(0,0,0,.22)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-bezel{padding:4.5px;border-radius:calc(var(--sw)*.125 + 4.5px);background:#000;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-screen{position:relative;border-radius:calc(var(--sw)*.125);overflow:hidden;background:#000}
+.pf-screen::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 30%)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.phone-frame .shots{aspect-ratio:440/956;position:relative}
+.phone-frame .shots>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phone-island{position:absolute;z-index:3;top:calc(var(--sw)*.025);left:50%;width:calc(var(--sw)*.286);height:calc(var(--sw)*.084);transform:translateX(-50%);border-radius:99px;background:#000}
+.pf-status{position:absolute;z-index:3;left:0;right:0;top:calc(var(--sw)*.025);height:calc(var(--sw)*.084);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--sw)*.085) 0 calc(var(--sw)*.11);color:#fff;font:600 calc(var(--sw)*.039)/1 var(--font);letter-spacing:-.01em}
+.pf-status i{display:flex;align-items:center;gap:calc(var(--sw)*.014)}
+.pf-status svg{height:calc(var(--sw)*.03);width:auto}.pf-status svg.bat{height:calc(var(--sw)*.034)}
+.pf-home{position:absolute;z-index:3;left:50%;bottom:calc(var(--sw)*.018);transform:translateX(-50%);width:calc(var(--sw)*.32);height:calc(var(--sw)*.012);border-radius:99px;background:rgba(255,255,255,.85)}
+.phone-frame.lt .pf-status{color:#111}.phone-frame.lt .pf-home{background:rgba(0,0,0,.8)}
+.pf-btn{position:absolute;width:3px;border-radius:2px;background:linear-gradient(90deg,#4f535a,#b4b8bf 60%,#6b6f76)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-btn.l{left:-2px}.pf-btn.r{right:-2px;background:linear-gradient(90deg,#6b6f76,#b4b8bf 40%,#4f535a)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.pf-action{top:17%;height:4.2%}.pf-vol1{top:24%;height:7.5%}.pf-vol2{top:33%;height:7.5%}.pf-side{top:26%;height:11%}.pf-cam{top:57%;height:6.5%;background:linear-gradient(90deg,#2a2d31,#6d7178)!important} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
+.ui{position:absolute;inset:0;font-size:calc(var(--sw)*.04)}
+@media (min-width:900px){
+  .js .frame{display:block;grid-column:1/7;grid-row:1;position:sticky;top:calc(50svh - min(78svh,700px)*0.5);height:min(78svh,700px);align-self:start}
+  .js .frame .fig{position:absolute;inset:0;margin:0;height:100%;opacity:0;transform:translateY(24px) scale(.97);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+  .js .frame .fig:not(.on){visibility:hidden;transition:opacity .4s var(--ease),transform .4s var(--ease),visibility 0s .4s}
+  .js .frame .fig.on{opacity:1;transform:none}
+  .js .steps{grid-column:8/13;grid-row:1;gap:0}
+  .js .step{min-height:74svh;display:flex;flex-direction:column;justify-content:center}
+  .js .step>.fig{display:none}
+}
+
+/* Экраны приложений, собранные из их интерфейса (примерные данные) */
+.ui{font-family:var(--font);line-height:1.3;padding:17% 7% 9%;display:flex;flex-direction:column;gap:9px;text-align:left}
+.ui .t{font-size:1.5em;font-weight:700;letter-spacing:-.03em}
+.ui .m{opacity:.7}
+.ui ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ui li{display:flex;justify-content:space-between;align-items:center;gap:8px;border-radius:12px;padding:9px 11px}
+.ui-diary{background:#F4F7FB;color:#14223A}
+.ui-diary .sum{font-size:2.2em;font-weight:700;letter-spacing:-.04em}
+.ui-diary .today{color:#C2410C;font-weight:600}
+.ui-diary .say{background:#2F6FBF;color:#fff;border-radius:14px 14px 4px 14px;padding:10px 12px;align-self:flex-end;max-width:88%}
+.ui-diary li{background:#fff}.ui-diary .plus{color:#15803D;font-weight:600}
+.ui-diary .mic{margin-top:auto;align-self:center;width:54px;height:54px;border-radius:50%;background:#4A90E2;display:grid;place-items:center}
+.ui-diary .mic i{width:12px;height:20px;border-radius:6px;background:#fff;display:block}
+.ui-quran{background:#0B3324;color:#EBDDB0}
+.ui-quran .ic{width:64px;height:64px;border-radius:22.5%;align-self:center;margin:4px 0}
+.ui-quran .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.ui-quran .grid i{aspect-ratio:1;border-radius:6px;background:#164A36;display:grid;place-items:center;font-style:normal;font-size:10.5px;color:#9FB8A8}
+.ui-quran .grid i.d{background:#D9B45F;color:#0B3324;font-weight:600}
+.ui-quran .grid i.me{background:#EBDDB0;color:#0B3324;font-weight:700}
+.ui-quran .bt{margin-top:auto;background:#D9B45F;color:#0B3324;border-radius:999px;text-align:center;padding:11px;font-weight:700}
+.ui-pro{background:#F2F2F0;color:#1F1F23}
+.ui-pro li{background:#fff;flex-direction:column;align-items:stretch;gap:6px}
+.ui-pro li div{display:flex;justify-content:space-between;gap:8px}
+.ui-pro .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.ui-pro .bar i{height:5px;border-radius:3px;background:#DADAD6}
+.ui-pro .bar i.d{background:#1F1F23}
+.ui-pro .sumrow{margin-top:auto;background:#1F1F23;color:#F2F2F0;border-radius:12px;padding:11px;display:flex;justify-content:space-between;gap:8px}
+.ui-pro .sumrow .m{opacity:.75}
+.ui-pro .ok{color:#15803D;font-weight:600}.ui-pro .late{color:#B91C1C;font-weight:600}
+.ui-cut{background:#1E1410;color:#FFFFFF}
+.ui-cut li{background:#2D1F18}
+.ui-cut .st{border-radius:999px;padding:3px 8px;font-size:11px;font-weight:600;white-space:nowrap}
+.ui-cut .st.go{background:#E2703A;color:#1F0D04}.ui-cut .st.q{background:#3E2C22;color:#FFFFFF}.ui-cut .st.ok{background:#F6E7DD;color:#1F0D04}
+.ui-cut .mach{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ui-cut .mach div{background:#E2703A;color:#1F0D04;border-radius:12px;padding:10px 11px;font-weight:600}
+.ui-cut .mach div:last-child{background:#3E2C22;color:#FFFFFF}
+
+/* Ожившие экраны: проигрываются, когда экран показан */
+@keyframes uin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes uout{to{opacity:0;transform:translateY(-6px)}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes gold{0%{background:#EBDDB0;transform:scale(1)}45%{transform:scale(1.28)}100%{background:#D9B45F;transform:scale(1)}}
+@keyframes press{50%{transform:scale(.94)}}
+@keyframes m2{to{background:#E2703A;color:#1F0D04}}
+.ui .sw2{display:inline-grid}.ui .sw2>span{grid-area:1/1}
+html:not(.js) .ui .sw2 .a{visibility:hidden}
+.js .ui .sw2 .b{opacity:0}
+.js .ui.play .sw2 .a{animation:uout .35s var(--ease) forwards;animation-delay:var(--d,1.4s)}
+.js .ui.play .sw2 .b{animation:uin .45s var(--ease) forwards;animation-delay:calc(var(--d,1.4s) + .2s)}
+.js .ui .pop{opacity:0}
+.js .ui.play .pop{animation:uin .5s var(--ease) forwards;animation-delay:var(--d,.4s)}
+.js .ui-pro .bar i.d{transform:scaleX(0);transform-origin:left}
+.js .ui-pro.play .bar i.d{animation:bar .5s var(--ease) forwards;animation-delay:calc(.2s + var(--n,0)*.1s)}
+.js .ui-quran.play .grid i.me{animation:gold .8s var(--ease) 1s forwards}
+.js .ui-quran.play .bt{animation:press .3s ease .7s}
+.js .ui-cut.play .mach .m2{animation:m2 .4s var(--ease) 1.4s forwards}
+@media (prefers-reduced-motion:reduce){.js .ui *{animation:none!important}.js .ui .pop,.js .ui .sw2 .b{opacity:1}.js .ui .sw2 .a{opacity:0}.js .ui-pro .bar i.d{transform:none}}
+
+/* ── Aivo Scan крупно: снимок во весь экран, карточка в одну колонку */
+.show{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden;background:#0d0f12}
+.show>img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;object-position:62% 50%;transform:scale(1.08);transition:transform 2.4s var(--ease)}
+.show.in>img{transform:none}
+.show .card{position:relative;margin-left:var(--m);width:clamp(300px,26vw,400px);background:var(--ink);color:var(--bg);padding:36px;display:flex;flex-direction:column;gap:14px}
+.show .card h2{font-size:var(--s-h3)}
+.show .card .sub{color:#D6D3CE}
+.show .card .btn{width:100%;margin-top:10px;background:var(--scan);color:#04231C}
+
+/* ── Обо мне */
+.about{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);row-gap:48px;padding:clamp(120px,14vw,200px) var(--m) 0;align-items:start}
+.about h2{grid-column:1/-1;font-size:var(--s-h2)}
+.about .txt{grid-column:1/7;display:grid;gap:28px;font-size:clamp(22px,2.1vw,30px);line-height:1.3;letter-spacing:-.015em}
+.about .side{grid-column:8/13;display:grid;gap:32px}
+.about .pics{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.about .pics img{width:100%;aspect-ratio:420/913;object-fit:cover;background:var(--surface)}
+.about .stores{display:flex;flex-wrap:wrap;gap:12px}
+.about .stores span{background:var(--surface);border-radius:999px;padding:12px 20px;font-weight:600}
+
+/* ── Заказать: графитовое поле, слева заголовок, справа шаги крупно */
+.order{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);row-gap:56px;margin-top:clamp(120px,14vw,200px);padding:clamp(80px,9vw,140px) var(--m);background:var(--ink);color:var(--bg)}
+.order .ohead{grid-column:1/6;display:grid;gap:28px;align-content:start;position:sticky;top:48px;align-self:start}
+.order h2{font-size:var(--s-h2)}
+.order .ohead p{font-size:21px;line-height:1.45;color:#D6D3CE}
+.order .ohead .btn{justify-self:start;background:var(--scan);color:#04231C}
+.osteps{grid-column:7/13;list-style:none;margin:0;padding:0;display:grid;gap:clamp(40px,5vw,72px)}
+.osteps h3{font-size:clamp(40px,4.6vw,72px);font-weight:800;letter-spacing:-.045em;line-height:.95}
+.osteps p{font-size:21px;line-height:1.45;margin-top:14px;color:#D6D3CE;max-width:26em}
+.osteps li:nth-child(1) h3{color:#00D4AA}.osteps li:nth-child(2) h3{color:#7FB2EE}.osteps li:nth-child(3) h3{color:#D9B45F}.osteps li:nth-child(4) h3{color:#F0956A}
+.order+.contact{margin-top:0}
+
+/* ── Связаться */
+.contact{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);row-gap:48px;align-items:end;margin-top:clamp(120px,14vw,200px);padding:clamp(80px,9vw,140px) var(--m);background:var(--surface)}
+.contact .ctxt{grid-column:1/8;display:grid;gap:28px;align-content:end}
+.contact h2{font-size:var(--s-h2)}
+.contact .ctxt p{font-size:21px;line-height:1.45;max-width:28em}
+.contact .phone{font-size:clamp(36px,4.6vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1;text-decoration:none;font-variant-numeric:tabular-nums}
+.contact .phone:hover{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:10px}
+.vcard{grid-column:9/13;background:var(--paper);border-radius:8px;padding:32px;display:grid;gap:18px}
+.vcard .rows{display:grid;gap:4px}
+.vcard .rows a{display:flex;justify-content:space-between;gap:16px;text-decoration:none;padding:10px 0;font-variant-numeric:tabular-nums}
+.vcard .rows a span:first-child{color:var(--muted)}
+.vcard .rows a:hover span:last-child{text-decoration:underline;text-underline-offset:4px}
+.vcard .btn{width:100%;min-height:56px;background:#1E8E5A;color:#fff}
+
+/* ── Подвал: имя первым */
+.foot{background:var(--ink);color:var(--bg);padding:clamp(48px,6vw,96px) var(--m) 32px;overflow:hidden}
+.foot .name{font-size:clamp(56px,16.9vw,268px);font-weight:800;letter-spacing:-.055em;line-height:.9;padding-top:.18em;white-space:nowrap}
+.foot .row{display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;margin-top:72px}
+.foot .places{grid-column:1/6;display:grid;gap:6px;align-content:start}
+.foot .places a{font-size:var(--s-h3);font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--bg)}
+.foot .places a:hover{text-decoration:underline;text-underline-offset:6px}
+.foot .cols{grid-column:7/13;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-size:var(--s-sm)}
+.foot .cols p{color:#A8A29E;margin-bottom:8px}
+.foot .cols a{display:block;text-decoration:none;padding:4px 0;color:var(--bg)}
+.foot .cols a:hover{text-decoration:underline}
+.foot .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;margin-top:96px;font-size:var(--s-sm);color:#A8A29E}
+.foot .legal a{color:#D6D3CE}
+.foot .tm{margin-top:20px;font-size:var(--s-sm);color:#A8A29E;max-width:72ch}
+.foot .cols .sp{margin-top:20px}
+
+/* ── Телефон и планшет */
+@media (max-width:899px){
+  .hero{grid-template-columns:1fr;gap:56px}
+  .tilebox{justify-self:start;width:min(100%,440px)}
+  .deck{width:80%}
+  .about .txt,.about .side{grid-column:1/-1}
+  .show{min-height:auto;display:block;background:var(--bg)}
+  .show>img{position:relative;top:0;height:70svh;clip-path:inset(7% 0 7% 0);margin-top:-4.9svh;object-position:60% 50%}
+  .show .card{margin:-80px var(--m) 0;width:auto}
+  .contact .ctxt,.vcard{grid-column:1/-1}
+  .order .ohead,.osteps{grid-column:1/-1;position:static}
+  .order .ohead .btn{display:none}
+  .order .btn2{display:inline-flex!important;grid-column:1/-1;justify-self:start}
+  .vcard{padding:24px}
+  .foot .row{grid-template-columns:1fr 1fr;row-gap:48px}
+  .foot .places,.foot .cols{grid-column:1/-1}
+  .foot .cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:420px){.about .txt{font-size:20px}.picker{gap:6px}.picker button{font-size:13px}.steps{gap:96px}}
+@media (prefers-reduced-motion:reduce){.track{animation:none}.show>img{transform:none}.js .tile .sig use{animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="s" viewBox="0 0 8700 8700"><path d="M2339.9 5489.79c-333.52,-32.36 -450.83,-328.7 -451.41,-624.26 -0.57,-294.59 94.98,-628.82 199.79,-902.37 110.71,-288.96 262.98,-593.8 450.24,-840.36 152.12,-200.31 395.49,-446.38 674.04,-375.31 253.6,64.71 380.2,289.78 448.8,524.73 20.22,69.21 36.52,140.79 50.2,213.53 178.41,-276.93 347.43,-559.98 506.08,-841.45 58.7,-104.17 191.52,-141.24 295.69,-82.54 104.15,58.7 141.23,191.52 82.52,295.69 -243.58,432.18 -511.97,869.85 -800.72,1284.06 29.21,254.25 95.5,690.69 259.22,728.74 2.78,0.66 5.17,1.25 7.95,2.02 161.88,44.12 423.31,-45.81 571.63,-107.32 281.93,-116.9 559.63,-287.18 807.16,-464.88 15.48,-11.12 30.99,-22.36 46.49,-33.7 -63,-48.65 -125.6,-97.69 -185.87,-149.39 -135.52,-116.24 -272.88,-261.35 -272.85,-451.58 -11.01,-379.36 431.71,-628.72 744.51,-726.93 326.76,-102.6 838.43,-139.85 1006.31,237.3 151.79,323.84 -251.72,777.43 -609.06,1096.33 311.85,307.43 507.92,671.38 439.54,1142.57 -1.55,10.67 -3.5,19.66 -6.52,30 -268.69,914.98 -1598.05,751.73 -2304.44,617.67 -117.48,-22.29 -195.09,-136.28 -172.8,-253.74 22.31,-117.46 136.28,-195.07 253.74,-172.79 420.77,79.86 1612.55,279.84 1802.56,-299.33 42.04,-332.72 -125.11,-576.84 -349.3,-786.75 -15.24,11.64 -29.49,22.39 -42.63,32.24 -427.47,320.28 -1278.98,859.23 -1838.76,710.2 -301.94,-72.41 -442.03,-356.62 -515.96,-662.72 -162.76,208.89 -343.97,425.59 -540.96,601.8 -145.24,129.92 -348.41,282.24 -555.19,258.53zm3496.82 -1502.24c101.78,-89.15 199.2,-182.63 288.45,-279.48 55.85,-60.56 233.79,-268.04 252.65,-363.67 -22.01,-25.32 -84.75,-36 -110.1,-39.01 -116.08,-13.78 -253.74,12.58 -364.31,47.27 -118.61,37.25 -247.95,96.82 -344.49,175.92 -24.71,20.25 -97.61,88.19 -96.08,124.8 0.07,1.67 0.1,3.24 0.14,4.8 19.47,46.35 140.34,145.82 176.21,174.74 65.33,52.7 131.62,103.42 197.53,154.62zm-2490.85 36.95c-18.34,-175.36 -74.68,-795.87 -233.47,-854.14 -83.3,19.83 -241.72,230.74 -284.16,292.91 -149.63,219.28 -272.55,479.23 -362.05,729.42 -73.18,204.52 -150.1,477.25 -143.17,696 1.37,43.65 8.02,116.4 32.1,154.54 7.6,12.02 12.88,13.19 27.59,14.53 0.38,0.05 0.75,0.07 1.1,0.1 67.32,-10.94 222.09,-149.14 268.11,-192.92 178.35,-169.6 342.72,-372.23 492.03,-567.56 68.32,-89.39 135.66,-180.46 201.91,-272.88z"/></symbol></svg>
+<a class="skip" href="#apps">К приложениям</a>
+
+<header class="nav">
+  <a class="wm" href="#top" aria-label="Aivo Design, в начало"><svg class="sig" aria-hidden="true"><use href="#s"/></svg>Aivo Design</a>
+  <a class="nl" href="#apps">Приложения</a>
+  <a class="nl" href="#about">Обо мне</a>
+  <a class="nl" href="#contact">Связаться</a>
+  <a class="btn" href="https://wa.me/996990551884?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D0%B8%D1%88%D1%83%20%D1%81%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%20Aivo%20Design">Написать</a>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div>
+    <h1 id="h1" class="rise"><span>Одна роспись,</span> <span>пять приложений</span></h1>
+    <p class="lead rise" style="--i:1">Aivo Design — это я, Али Тажибаев, разработчик приложений. Делаю программы для мебельных цехов, для своих денег и для чтения Корана вместе.</p>
+    <div class="acts rise" style="--i:2">
+      <a class="btn" href="#apps">Смотреть приложения</a>
+      <a class="link" href="#contact">Связаться</a>
+    </div>
+    <div class="nums rise" style="--i:3">
+      <p><b>5</b>приложений</p>
+      <p><b>3</b>языка</p>
+      <p><b>3</b>платформы</p>
+    </div>
+  </div>
+  <div class="tilebox rise" style="--i:2">
+    <div class="deck" id="deck" role="img" aria-label="Пять квадратов с росписью Aivo в цветах приложений">
+      <div class="tile" data-k="scan" data-p="0" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
+      <div class="tile" data-k="diary" data-p="1" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
+      <div class="tile" data-k="quran" data-p="2" style="--c:#0B3324;--f:#D9B45F"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
+      <div class="tile" data-k="pro" data-p="3" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
+      <div class="tile" data-k="cut" data-p="4" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
+    </div>
+    <p class="tilecap" id="tilecap" aria-live="polite"><b>Aivo Scan</b> — мебель в 3D по QR-коду</p>
+    <div class="picker" role="group" aria-label="Выбрать приложение">
+      <button type="button" aria-pressed="true" data-k="scan" data-n="Aivo Scan" data-t="мебель в 3D по QR-коду"><span class="sw" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Scan</button>
+      <button type="button" aria-pressed="false" data-k="diary" data-n="Aivo Diary" data-t="деньги и дела голосом"><span class="sw" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Diary</button>
+      <button type="button" aria-pressed="false" data-k="quran" data-n="Aivo Quran" data-t="хатм с близкими"><span class="sw" style="--c:#0B3324;--f:#D9B45F"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Quran</button>
+      <button type="button" aria-pressed="false" data-k="pro" data-n="Aivo Pro" data-t="для мебельных студий"><span class="sw" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Pro</button>
+      <button type="button" aria-pressed="false" data-k="cut" data-n="Aivo Cut" data-t="распил для нескольких цехов"><span class="sw" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Cut</button>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="track"><span style="--c:#00D4AA"><span class="sq" style="--c:#00D4AA"><svg class="sig"><use href="#s"/></svg></span>Aivo Scan</span><span style="--c:#4A90E2"><span class="sq" style="--c:#4A90E2"><svg class="sig"><use href="#s"/></svg></span>Aivo Diary</span><span style="--c:#D9B45F"><span class="sq" style="--c:#0B3324;--f:#D9B45F"><svg class="sig"><use href="#s"/></svg></span>Aivo Quran</span><span style="--c:#F2F2F0"><span class="sq" style="--c:#F2F2F0;--f:#1F1F23"><svg class="sig"><use href="#s"/></svg></span>Aivo Pro</span><span style="--c:#E2703A"><span class="sq" style="--c:#E2703A"><svg class="sig"><use href="#s"/></svg></span>Aivo Cut</span><span style="--c:#00D4AA"><span class="sq" style="--c:#00D4AA"><svg class="sig"><use href="#s"/></svg></span>Aivo Scan</span><span style="--c:#4A90E2"><span class="sq" style="--c:#4A90E2"><svg class="sig"><use href="#s"/></svg></span>Aivo Diary</span><span style="--c:#D9B45F"><span class="sq" style="--c:#0B3324;--f:#D9B45F"><svg class="sig"><use href="#s"/></svg></span>Aivo Quran</span><span style="--c:#F2F2F0"><span class="sq" style="--c:#F2F2F0;--f:#1F1F23"><svg class="sig"><use href="#s"/></svg></span>Aivo Pro</span><span style="--c:#E2703A"><span class="sq" style="--c:#E2703A"><svg class="sig"><use href="#s"/></svg></span>Aivo Cut</span></div></div>
+
+<section class="apps" id="apps" aria-labelledby="apps-h">
+  <h2 id="apps-h" class="rise">Приложения</h2>
+  <div class="run">
+    <div class="frame" aria-hidden="true"></div>
+    <div class="steps">
+
+      <article class="step" data-ab="#00D4AA" data-ai="#04231C" data-bb="#04231C" data-bi="#00D4AA">
+        <figure class="fig" style="--c:#00D4AA"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><img src="img/scr-model.jpg" width="600" height="1304" alt="Aivo Scan на телефоне: модель шкафа в 3D" loading="lazy"></div></div></div></div></figure>
+        <h3 class="rise">Aivo Scan</h3>
+        <p class="what rise" style="--i:1">Сборщик наводит телефон на QR-код детали и видит шкаф целиком: где эта деталь стоит и как её собрать.</p>
+        <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>мебельные цеха и сборщики</dd><dt>Где</dt><dd>iPhone, Android, браузер</dd><dt>Сейчас</dt><dd>работает, есть в App Store</dd></dl>
+        <a class="btn go rise" style="--i:3" href="https://aivoscan.work">Открыть aivoscan.work</a>
+      </article>
+
+      <article class="step" data-ab="#4A90E2" data-ai="#08172E" data-bb="#08172E" data-bi="#FFFFFF">
+        <figure class="fig" style="--c:#4A90E2"><div class="phone-frame lt" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-diary" data-ui>
+          <span class="m">Пятница, 21 ноября</span>
+          <span class="sum"><span class="sw2"><span class="a">48 850 сом</span><span class="b">48 250 сом</span></span></span>
+          <span class="today"><span class="sw2"><span class="a">Сегодня потрачено 1 250 сом</span><span class="b">Сегодня потрачено 1 850 сом</span></span></span>
+          <span class="say pop" style="--d:.5s">Хей, Aivo, добавь 600 за еду</span>
+          <ul><li class="pop" style="--d:1.3s"><b>Еда</b><span>−600</span></li><li><b>Такси</b><span>−250</span></li><li><b>Продукты</b><span>−1 000</span></li><li><b>Аванс</b><span class="plus">+15 000</span></li></ul>
+          <span class="mic"><i></i></span>
+        </span></div></div></div></div></figure>
+        <h3 class="rise">Aivo Diary</h3>
+        <p class="what rise" style="--i:1">Личный блокнот денег и дел. Говорите «600 за еду» — запись готова, а потом спросите, сколько ушло за неделю.</p>
+        <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>для себя и семьи</dd><dt>Языки</dt><dd>русский, кыргызский, турецкий</dd><dt>Сейчас</dt><dd>проверка в TestFlight и Google Play</dd></dl>
+      </article>
+
+      <article class="step" data-ab="#0B3324" data-ai="#EBDDB0" data-bb="#D9B45F" data-bi="#0B3324">
+        <figure class="fig" style="--c:#0B3324"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-quran" data-ui>
+          <span class="m">Хатм семьи · 8 человек</span>
+          <img class="ic" src="img/quran-icon.jpg" width="600" height="600" alt="" loading="lazy">
+          <span class="t"><span class="sw2" style="--d:1.5s"><span class="a">Прочитано 17 из 30</span><span class="b">Прочитано 18 из 30</span></span></span>
+          <span class="grid"><i class="d">1</i><i class="d">2</i><i class="d">3</i><i class="d">4</i><i class="d">5</i><i class="d">6</i><i class="d">7</i><i class="d">8</i><i class="d">9</i><i class="d">10</i><i class="d">11</i><i class="d">12</i><i class="d">13</i><i class="d">14</i><i class="d">15</i><i class="d">16</i><i class="d">17</i><i class="me">18</i><i class="">19</i><i class="">20</i><i class="">21</i><i class="">22</i><i class="">23</i><i class="">24</i><i class="">25</i><i class="">26</i><i class="">27</i><i class="">28</i><i class="">29</i><i class="">30</i></span>
+          <span class="m"><span class="sw2" style="--d:1.5s"><span class="a">Ваш джуз — 18. Осталось 13.</span><span class="b">Джуз 18 засчитан. Осталось 12.</span></span></span>
+          <span class="bt">Закончил джуз</span>
+        </span></div></div></div></div></figure>
+        <h3 class="rise">Aivo Quran</h3>
+        <p class="what rise" style="--i:1">Хатм вместе с близкими: группа делит 30 джузов, каждый отмечает свой. На иконке роза из 30 лепестков, по лепестку на джуз.</p>
+        <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>семья, друзья, джамаат</dd><dt>Где</dt><dd>iPhone и Android</dd><dt>Сейчас</dt><dd>в разработке</dd></dl>
+        <a class="btn go rise" style="--i:3" href="quran/">Страница Aivo Quran</a>
+      </article>
+
+      <article class="step" data-ab="#1F1F23" data-ai="#F2F2F0" data-bb="#F2F2F0" data-bi="#1F1F23">
+        <figure class="fig" style="--c:#1F1F23"><div class="phone-frame lt" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-pro" data-ui>
+          <span class="m">Студия · 6 заказов в работе</span>
+          <span class="t">Заказы</span>
+          <ul>
+            <li><div><b>Кухня 3,2 м</b><span class="ok">в срок</span></div><span class="bar"><i class="d" style="--n:1"></i><i class="d" style="--n:2"></i><i class="d" style="--n:3"></i><i></i><i></i></span><div><span class="m">Цех</span><span class="m">до 12 дек</span></div></li>
+            <li><div><b>Шкаф-купе</b><span class="late">опаздывает</span></div><span class="bar"><i class="d" style="--n:4"></i><i class="d" style="--n:5"></i><i></i><i></i><i></i></span><div><span class="m">Конструктор</span><span class="m">до 5 дек</span></div></li>
+            <li><div><b>Прихожая</b><span class="ok">в срок</span></div><span class="bar"><i class="d" style="--n:6"></i><i class="d" style="--n:7"></i><i class="d" style="--n:8"></i><i class="d" style="--n:9"></i><i></i></span><div><span class="m">Установка</span><span class="m">оплата 60%</span></div></li>
+            <li><div><b>Детская</b><span class="ok">в срок</span></div><span class="bar"><i class="d" style="--n:10"></i><i></i><i></i><i></i><i></i></span><div><span class="m">Замер</span><span class="m">до 20 дек</span></div></li>
+          </ul>
+          <span class="sumrow"><span class="m">Поступило за ноябрь</span><b>412 000 сом</b></span>
+        </span></div></div></div></div></figure>
+        <h3 class="rise">Aivo Pro</h3>
+        <p class="what rise" style="--i:1">Для мебельных студий: заказ от замера до установки, цех, конструкторы и деньги — в одном месте.</p>
+        <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>мебельные студии</dd><dt>Где</dt><dd>телефон и компьютер</dd><dt>Сейчас</dt><dd>работает у первой студии</dd></dl>
+        <a class="btn go rise" style="--i:3" href="#contact">Хочу для своей студии</a>
+      </article>
+
+      <article class="step" data-ab="#E2703A" data-ai="#1F0D04" data-bb="#1F0D04" data-bi="#FFFFFF">
+        <figure class="fig" style="--c:#E2703A"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-cut" data-ui>
+          <span class="m">Сегодня · 2 станка</span>
+          <span class="t">Очередь распила</span>
+          <span class="mach"><div>Станок 1<br>работает</div><div class="m2"><span class="sw2" style="--d:1.2s"><span class="a">Станок 2<br>свободен</span><span class="b">Станок 2<br>работает</span></span></div></span>
+          <ul>
+            <li><span><b>№ 1482</b><br><span class="m">14 листов · белый</span></span><span class="st go">пилится</span></li>
+            <li><span><b>№ 1483</b><br><span class="m">6 листов · дуб</span></span><span class="sw2" style="--d:1.2s"><span class="a st q">в очереди</span><span class="b st go">пилится</span></span></li>
+            <li><span><b>№ 1479</b><br><span class="m">9 листов · графит</span></span><span class="st ok">к выдаче</span></li>
+          </ul>
+        </span></div></div></div></div></figure>
+        <h3 class="rise">Aivo Cut</h3>
+        <p class="what rise" style="--i:1">Заказы на распил для нескольких цехов сразу: приём, очередь, станки и выдача.</p>
+        <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>цеха распила ЛДСП</dd><dt>Где</dt><dd>браузер на компьютере и телефоне</dd><dt>Сейчас</dt><dd>скоро</dd></dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="show" aria-labelledby="show-h">
+  <img src="img/app-explode.jpg" width="1600" height="1000" alt="Aivo Scan: шкаф разобран на детали «взрывом»" loading="lazy">
+  <div class="card rise">
+    <h2 id="show-h">Aivo Scan в деле</h2>
+    <p class="sub">Шкаф из 134 деталей разобран «взрывом»: видно каждую.</p>
+    <p>Код детали, размер, кромка — по одному касанию.</p>
+    <a class="btn" href="https://aivoscan.work">Попробовать</a>
+  </div>
+</section>
+
+<section class="about" id="about" aria-labelledby="about-h">
+  <h2 id="about-h" class="rise">Обо мне</h2>
+  <div class="txt">
+    <p class="rise">Я разработчик программного обеспечения. Делаю приложения под настоящие задачи людей и бизнеса.</p>
+    <p class="rise" style="--i:1">Сам придумываю, рисую и собираю каждое приложение. Проверяю с теми, кто будет им пользоваться, и только потом выпускаю.</p>
+  </div>
+  <div class="side">
+    <div class="pics rise"><img src="img/scr-sel.jpg" width="600" height="1304" alt="Aivo Scan: выбранная деталь и её размеры" loading="lazy"><img src="img/scr-explode.jpg" width="600" height="1304" alt="Aivo Scan: шкаф по деталям на телефоне" loading="lazy"></div>
+    <div class="stores rise" style="--i:1"><span>App Store</span><span>Google Play</span><span>Браузер</span></div>
+  </div>
+</section>
+
+<section class="order" id="order" aria-labelledby="order-h">
+  <div class="ohead">
+    <h2 id="order-h" class="rise">Заказать приложение</h2>
+    <p class="rise" style="--i:1">Есть задача для бизнеса или для себя — расскажите. Сначала покажу экраны картинками, и только потом пишу код.</p>
+    <a class="btn rise" style="--i:2" href="https://wa.me/996990551884?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%BB%D1%8F%20">Обсудить в WhatsApp</a>
+  </div>
+  <ol class="osteps">
+    <li class="rise"><h3>Разговор</h3><p>Переписка или звонок: что за задача, кто будет пользоваться, на каких телефонах.</p></li>
+    <li class="rise" style="--i:1"><h3>Макет</h3><p>Рисую экраны. Правим их, пока всё не станет понятно, — до начала программирования.</p></li>
+    <li class="rise" style="--i:2"><h3>Приложение</h3><p>Собираю приложение и даю попробовать на вашем телефоне.</p></li>
+    <li class="rise" style="--i:3"><h3>Выпуск</h3><p>Публикую в App Store и Google Play или запускаю в браузере. Обновления — по договорённости.</p></li>
+  </ol>
+  <a class="btn btn2" style="display:none;background:var(--scan);color:#04231C" href="https://wa.me/996990551884?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%BB%D1%8F%20">Обсудить в WhatsApp</a>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="ctxt">
+    <h2 id="contact-h">Связаться</h2>
+    <p style="--i:1">Нужно приложение, вопрос по Aivo Scan или Aivo Pro — пишите. Отвечаю сам, по-русски и по-кыргызски.</p>
+    <a class="phone" style="--i:2" href="tel:+996990551884">+996 990 551 884</a>
+  </div>
+  <div class="vcard" style="--i:1">
+    <div class="rows">
+      <a href="tel:+996990551884"><span>Телефон</span><span>+996 990 551 884</span></a>
+      <a href="https://wa.me/996990551884"><span>WhatsApp</span><span>+996 990 551 884</span></a>
+      <a href="https://instagram.com/aivo.design"><span>Instagram</span><span>@aivo.design</span></a>
+    </div>
+    <a class="btn" href="https://wa.me/996990551884?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BF%D0%B8%D1%88%D1%83%20%D1%81%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%20Aivo%20Design">Написать в WhatsApp</a>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="name" aria-hidden="true">Aivo Design</p>
+  <div class="row">
+    <nav class="places" aria-label="Приложения">
+      <a href="https://aivoscan.work">aivoscan.work</a>
+      <a href="quran/">Aivo Quran</a>
+      <a href="https://instagram.com/aivo.design">@aivo.design</a>
+    </nav>
+    <div class="cols">
+      <div><p>Сайт</p><a href="#apps">Приложения</a><a href="#about">Обо мне</a><a href="#contact">Связаться</a></div>
+      <div><p>Aivo Scan</p><a href="https://aivoscan.work">Сайт</a><a href="https://apps.apple.com/kg/app/aivo-scan/id6831321228">App Store</a><a href="https://aivoscan.work/privacy.html">Конфиденциальность</a></div>
+      <div><p>Aivo Diary</p><a href="diary/privacy.html">Конфиденциальность</a><p class="sp">Aivo Quran</p><a href="quran/">О приложении</a><a href="quran/privacy.html">Конфиденциальность</a></div>
+    </div>
+  </div>
+  <div class="legal"><span>© 2026 Aivo Design · Али Тажибаев</span><span>Сайт не использует cookies и не собирает данные посетителей</span><a href="#top">Наверх</a></div>
+  <p class="tm">Экраны приложений на сайте показаны с примерными данными. iPhone и App Store — товарные знаки Apple Inc., Android и Google Play — товарные знаки Google LLC. Шрифт Onest — SIL Open Font License 1.1.</p>
+</footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Веер: выбранное приложение выходит вперёд, остальные уходят назад по порядку
+  var order=['scan','diary','quran','pro','cut'],cur=0,auto=null;
+  var tiles={},btns=document.querySelectorAll('.picker button'),cap=document.getElementById('tilecap');
+  document.querySelectorAll('.tile').forEach(function(t){tiles[t.dataset.k]=t});
+  function show(i,user){
+    cur=(i+order.length)%order.length;
+    order.forEach(function(k,j){var t=tiles[k];var p=(j-cur+order.length)%order.length;t.dataset.p=p;t.classList.toggle('draw',p===0&&!reduce)});
+    var t0=tiles[order[cur]];t0.classList.remove('draw');void t0.offsetWidth;if(!reduce)t0.classList.add('draw');
+    btns.forEach(function(b){var on=b.dataset.k===order[cur];b.setAttribute('aria-pressed',on);if(on)cap.innerHTML='<b>'+b.dataset.n+'</b> — '+b.dataset.t});
+    if(user&&auto){clearInterval(auto);auto=null}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(order.indexOf(b.dataset.k),true)})});
+  show(0);
+  if(!reduce){auto=setInterval(function(){if(!document.hidden)show(cur+1)},3200)}
+  // Раздел «Приложения»: телефон в рамке, цвет раздела — цвет текущего приложения
+  var apps=document.querySelector('.apps'),frame=document.querySelector('.frame'),steps=[].slice.call(document.querySelectorAll('.step'));
+  steps.forEach(function(s,i){var f=s.querySelector('.fig').cloneNode(true);f.querySelectorAll('[loading]').forEach(function(im){im.removeAttribute('loading')});if(i===0)f.classList.add('on');frame.appendChild(f)});
+  var figs=frame.children;
+  function paint(s){['ab','ai','bb','bi'].forEach(function(k){apps.style.setProperty('--'+k,s.dataset[k])})}
+  function play(ui){if(!ui)return;ui.classList.remove('play');void ui.offsetWidth;ui.classList.add('play')}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=steps.indexOf(e.target);for(var k=0;k<figs.length;k++)figs[k].classList.toggle('on',k===i);paint(e.target);play(figs[i].querySelector('.ui'));play(e.target.querySelector('.fig .ui'))}})},{rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(function(s){io.observe(s)});
+  // Появление частей разделов
+  var els=document.querySelectorAll('.rise, .show');
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io2.observe(e)});
+  // если страницу пролистали рывком (ссылка в меню), всё, что уже выше низа экрана, показываем сразу
+  var tick=false;addEventListener('scroll',function(){if(tick)return;tick=true;requestAnimationFrame(function(){tick=false;els.forEach(function(e){if(!e.classList.contains('in')&&e.getBoundingClientRect().top<innerHeight){e.classList.add('in');io2.unobserve(e)}})})},{passive:true});
+})();
+</script>
+</body>
+</html>
