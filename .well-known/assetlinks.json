@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": { "namespace": "android_app", "package_name": "work.aivo.quran",
+              "sha256_cert_fingerprints": ["62:21:B6:96:4B:F2:39:E8:FB:D1:AB:7A:94:E7:8A:6C:02:DD:F7:AA:44:7F:1C:DB:CE:94:8E:73:F9:EE:99:39"] }
+}]

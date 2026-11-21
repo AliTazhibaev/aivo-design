@@ -44,6 +44,23 @@
 </header>
 <main>
 <article class="doc"><header><h1>Такой страницы нет</h1><p class="sub">Возможно, ссылка устарела. Начните с главной — там все приложения Aivo.</p><p style="margin-top:32px"><a class="btn" href="/">На главную</a></p></header></article>
+<section id="invite" hidden style="padding:clamp(40px,6vw,96px) var(--m) clamp(96px,10vw,160px);max-width:640px">
+  <h1 style="font-size:clamp(32px,6vw,72px);font-weight:800;letter-spacing:-.045em;line-height:.95">Приглашение в хатм</h1>
+  <p style="font-size:20px;line-height:1.45;margin-top:20px">Вас зовут в группу Aivo Quran: каждый читает свой джуз, и вместе вы собираете хатм.</p>
+  <p style="margin-top:28px;font-size:15px;color:var(--muted)">Код группы</p>
+  <p id="invcode" style="font-size:clamp(40px,8vw,64px);font-weight:800;letter-spacing:.18em"></p>
+  <p style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px">
+    <a id="invopen" class="btn" href="#">Открыть в Aivo Quran</a>
+    <a class="btn" style="background:var(--surface);color:var(--ink)" href="/quran/">Скачать приложение</a>
+  </p>
+  <p style="margin-top:24px;font-size:15px;line-height:1.5;color:var(--muted)">Если приложение уже стоит, но не открылось: зайдите во вкладку «Группы» → «Есть код приглашения?» и введите код.</p>
+</section>
+<script>
+(function(){var m=location.pathname.match(/^\/quran\/j\/([A-Za-z0-9]{6})\/?$/);if(!m)return;var c=m[1].toUpperCase();
+document.title='Приглашение в хатм — Aivo Quran';
+var d=document.querySelector('.doc');if(d)d.style.display='none';var s=document.getElementById('invite');s.hidden=false;
+document.getElementById('invcode').textContent=c;document.getElementById('invopen').href='aivoquran://j/'+c;})();
+</script>
 </main>
 <footer class="mini"><span>© 2026 Aivo Design · Али Тажибаев</span><span><a href="/">aivodesign.site</a> · <a href="/diary/privacy.html">Конфиденциальность Aivo Diary</a> · <a href="/quran/privacy.html">Конфиденциальность Aivo Quran</a></span></footer>
 </body>
