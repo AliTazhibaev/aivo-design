@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Aivo Quran — хатм вместе с близкими</title>
-<meta name="description" content="Группа делит 30 джузов, каждый читает свой — и Коран прочитан целиком. Приложение Aivo Design.">
-<meta property="og:title" content="Aivo Quran — хатм вместе с близкими">
-<meta property="og:description" content="Группа делит 30 джузов, каждый читает свой — и Коран прочитан целиком. Приложение Aivo Design.">
+<title>Aivo Quran — читать, учить и завершать хатм вместе</title>
+<meta name="description" content="Коран, который легко читать где угодно: таджвид цветом, 12 чтецов, заучивание наизусть и хатм группой с близкими. Приложение Aivo Design.">
+<meta property="og:title" content="Aivo Quran — читать, учить и завершать хатм вместе">
+<meta property="og:description" content="Коран, который легко читать где угодно: таджвид цветом, 12 чтецов, заучивание наизусть и хатм группой с близкими. Приложение Aivo Design.">
 <meta property="og:image" content="https://aivodesign.site/img/og-quran.jpg">
 <!--seo-->
 <link rel="canonical" href="https://aivodesign.site/quran/">
@@ -14,13 +14,13 @@
 <meta property="og:type" content="website"><meta property="og:locale" content="ru_RU"><meta property="og:site_name" content="Aivo Design">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MobileApplication","@id":"https://aivodesign.site/quran/#app","name":"Aivo Quran","url":"https://aivodesign.site/quran/","description":"Хатм вместе с близкими: группа делит 30 джузов, каждый читает свой.","operatingSystem":"iOS, Android","applicationCategory":"LifestyleApplication","inLanguage":["ru","ky","tr"],"image":"https://aivodesign.site/img/aivo-quran-icon-512.png","author":{"@id":"https://aivodesign.site/#ali"},"publisher":{"@id":"https://aivodesign.site/#org"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Aivo Design","item":"https://aivodesign.site/"},{"@type":"ListItem","position":2,"name":"Aivo Quran","item":"https://aivodesign.site/quran/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MobileApplication","@id":"https://aivodesign.site/quran/#app","name":"Aivo Quran","url":"https://aivodesign.site/quran/","description":"Коран, который легко читать где угодно: таджвид цветом, 12 чтецов, заучивание наизусть и хатм группой с близкими.","operatingSystem":"iOS, Android","applicationCategory":"LifestyleApplication","inLanguage":["ru","ky","tr"],"image":"https://aivodesign.site/img/aivo-quran-icon-512.png","author":{"@id":"https://aivodesign.site/#ali"},"publisher":{"@id":"https://aivodesign.site/#org"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Aivo Design","item":"https://aivodesign.site/"},{"@type":"ListItem","position":2,"name":"Aivo Quran","item":"https://aivodesign.site/quran/"}]}]}</script>
 <!--/seo-->
 <meta name="theme-color" content="#0B3324">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../fonts/onest.css">
-<link rel="stylesheet" href="../site.css?v=4">
+<link rel="stylesheet" href="../site.css?v=3">
 <style>
 :root{--bg:#0B3324;--ink:#EBDDB0;--muted:#B9C7B5;--surface:#134430}
 .doc{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(16px,2vw,32px);padding:clamp(40px,6vw,96px) var(--m) clamp(96px,10vw,160px)}
@@ -45,6 +45,7 @@
 .pf-screen::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 30%)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
 .phone-frame .shots{aspect-ratio:440/956;position:relative}
 .phone-frame .shots>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phone-frame .shots.pad{background:var(--pad)}.phone-frame .shots.pad>img{inset:auto;top:5.4%;left:0;width:100%;height:auto}
 .phone-island{position:absolute;z-index:3;top:calc(var(--sw)*.025);left:50%;width:calc(var(--sw)*.286);height:calc(var(--sw)*.084);transform:translateX(-50%);border-radius:99px;background:#000}
 .pf-status{position:absolute;z-index:3;left:0;right:0;top:calc(var(--sw)*.025);height:calc(var(--sw)*.084);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--sw)*.085) 0 calc(var(--sw)*.11);color:#fff;font:600 calc(var(--sw)*.039)/1 var(--font);letter-spacing:-.01em}
 .pf-status i{display:flex;align-items:center;gap:calc(var(--sw)*.014)}
@@ -148,28 +149,23 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   <div>
     <img class="ic" src="../img/quran-icon.jpg" width="600" height="600" alt="Иконка Aivo Quran: золотая роза на тёмно-зелёном">
     <h1 id="qh1" class="rise">Aivo Quran</h1>
-    <p class="lead rise" style="--i:1">Хатм вместе с близкими. Группа делит 30 джузов, каждый читает свой — и Коран прочитан целиком.</p>
+    <p class="lead rise" style="--i:1">Коран, который легко читать где угодно. Проверяйте себя по чтецам, учите наизусть, а с близкими вместе завершайте хатм.</p>
     <p class="st">Готовится к выпуску в App Store и Google Play.</p>
     <div class="acts"><a class="btn" href="https://wa.me/996990551884?text=%D0%A1%D0%BE%D0%BE%D0%B1%D1%89%D0%B8%D1%82%D0%B5%2C%20%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0%20%D0%B2%D1%8B%D0%B9%D0%B4%D0%B5%D1%82%20Aivo%20Quran">Сообщить о выходе</a><a class="link" href="privacy.html">Конфиденциальность</a><a class="link" href="terms.html">Условия</a></div>
   </div>
-  <div class="ph" aria-hidden="true"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-quran" data-ui>
-          <span class="m">Хатм семьи · 8 человек</span>
-          <img class="ic" src="../img/quran-icon.jpg" width="600" height="600" alt="" loading="lazy">
-          <span class="t"><span class="sw2" style="--d:1.5s"><span class="a">Прочитано 17 из 30</span><span class="b">Прочитано 18 из 30</span></span></span>
-          <span class="grid"><i class="d">1</i><i class="d">2</i><i class="d">3</i><i class="d">4</i><i class="d">5</i><i class="d">6</i><i class="d">7</i><i class="d">8</i><i class="d">9</i><i class="d">10</i><i class="d">11</i><i class="d">12</i><i class="d">13</i><i class="d">14</i><i class="d">15</i><i class="d">16</i><i class="d">17</i><i class="me">18</i><i class="">19</i><i class="">20</i><i class="">21</i><i class="">22</i><i class="">23</i><i class="">24</i><i class="">25</i><i class="">26</i><i class="">27</i><i class="">28</i><i class="">29</i><i class="">30</i></span>
-          <span class="m"><span class="sw2" style="--d:1.5s"><span class="a">Ваш джуз — 18. Осталось 13.</span><span class="b">Джуз 18 засчитан. Осталось 12.</span></span></span>
-          <span class="bt">Закончил джуз</span>
-        </span></div></div></div></div></div>
+  <div class="ph" aria-hidden="true"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots pad" style="--pad:#071510"><img src="../img/q-home.jpg" width="600" height="1298" alt="Aivo Quran: главная — ваш джуз со сроком, аяты перед сном, намаз и тасбих"></div></div></div></div></div>
 </section>
 <section class="feat" aria-labelledby="fh">
   <h2 id="fh">Что внутри</h2>
   <dl>
-    <dt class="rise">Хатм группой</dt><dd class="rise" style="--i:1">Создайте группу для семьи, друзей или джамаата и отправьте ссылку. Каждый берёт свой джуз и отмечает «Закончил» — можно читать и по бумажному Корану.</dd>
-    <dt class="rise">Роза хатма</dt><dd class="rise" style="--i:1">Тридцать лепестков — тридцать джузов. Видно, сколько прочитано и чей джуз ещё открыт.</dd>
-    <dt class="rise">Свой хатм</dt><dd class="rise" style="--i:1">Каждый прочитанный джуз засчитывается и группе, и вам. Соберите все тридцать — и личный хатм завершён.</dd>
-    <dt class="rise">Умная главная</dt><dd class="rise" style="--i:1">Утром, днём и вечером — своё: дуа, зикр по вашему выбору, после 21:00 — аяты перед сном, в пятницу — сура аль-Кахф.</dd>
-    <dt class="rise">Таджвид и чтец</dt><dd class="rise" style="--i:1">Правила таджвида цветом, страницы мусхафа, чтец по аяту — аль-Хусари и аль-Афаси, с повтором и таймером сна.</dd>
-    <dt class="rise">Время намаза</dt><dd class="rise" style="--i:1">По вашему городу; аср — по ханафитскому или шафиитскому мазхабу, на выбор.</dd>
+    <dt class="rise">Читать где угодно</dt><dd class="rise" style="--i:1">Весь мусхаф в телефоне, и без интернета: страницы как в книге, крупный шрифт, закладки и поиск по суре, аяту или слову.</dd>
+    <dt class="rise">Таджвид цветом</dt><dd class="rise" style="--i:1">Правила таджвида выделены цветом прямо в тексте — видно, где тянуть звук, где сливать.</dd>
+    <dt class="rise">Проверить себя по чтецу</dt><dd class="rise" style="--i:1">12 известных чтецов — аль-Хусари, аль-Афаси, аль-Миншави, Абдуль-Басит и другие. Слушайте по аяту, с повтором и таймером сна.</dd>
+    <dt class="rise">Учить наизусть</dt><dd class="rise" style="--i:1">Аят за аятом: слова скрываются, вы вспоминаете. Повторы приходят сами — через 1, 3, 7, 14, 30 и 60 дней.</dd>
+    <dt class="rise">Хатм группой</dt><dd class="rise" style="--i:1">Семья, друзья или джамаат делят 30 джузов по ссылке. Можно взять целый джуз или половину, поставить срок и цель — роза из 30 лепестков покажет, кто где.</dd>
+    <dt class="rise">Свой хатм</dt><dd class="rise" style="--i:1">Каждый прочитанный джуз засчитывается и группе, и вам. Соберите все тридцать — и личный хатм завершён, а после него откроется дуа.</dd>
+    <dt class="rise">Умная главная</dt><dd class="rise" style="--i:1">Утром, днём и вечером — своё: дуа, зикр по вашему выбору, время намаза по вашему городу, после 21:00 — аяты перед сном, в пятницу — сура аль-Кахф.</dd>
+    <dt class="rise">На вашем языке</dt><dd class="rise" style="--i:1">Всё приложение — на русском, кыргызском и турецком, вместе со смыслом дуа.</dd>
   </dl>
 </section>
 <section class="icons" aria-labelledby="ih">
