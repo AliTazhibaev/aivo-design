@@ -14,8 +14,8 @@
     const ln = document.createElement('span'); ln.className = 'ln'; ln.append(inner);
     el.replaceChildren(ln); el.classList.add('mk');
   });
-  $$('.step .facts, .about .pics, .about .stores, .osteps li, .vcard').forEach((el) => el.classList.remove('rise'));
-  const watch = [...mk, ...$$('.step, .about .pics, .about .stores, .osteps li, .vcard')];
+  $$('.step .facts, .osteps li, .clinks li').forEach((el) => el.classList.remove('rise'));
+  const watch = [...mk, ...$$('.step, .osteps li, .clinks li')];
   if (reduce || !('IntersectionObserver' in window)) watch.forEach((e) => e.classList.add('in'));
   else {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); if (!e.target.classList.contains('step')) io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
@@ -99,8 +99,6 @@
       gsap.fromTo(fill.querySelectorAll('.fill-w'), { opacity: 0.45 }, { opacity: 1, stagger: 0.12, ease: 'none', scrollTrigger: { trigger: fill, start: 'top 82%', end: 'bottom 48%', ...ST } });
     }
 
-    // Снимки «Обо мне» плывут чуть медленнее страницы
-    $$('.about .pics img').forEach((im, i) => gsap.fromTo(im, { yPercent: i ? 6 : 3 }, { yPercent: i ? -6 : -3, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', ...ST } }));
 
     // Подвал выезжает из-под страницы, если помещается в экран; имя растёт, пока он открывается
     const foot = $('.foot'), name = $('.foot .name'), main = $('main');
