@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://aivodesign.site/</loc></url>
-  <url><loc>https://aivodesign.site/quran/</loc></url>
-  <url><loc>https://aivodesign.site/quran/privacy.html</loc></url>
-  <url><loc>https://aivodesign.site/diary/privacy.html</loc></url>
-  <url><loc>https://aivodesign.site/quran/terms.html</loc></url>
+  <url><loc>https://aivodesign.site/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://aivodesign.site/quran/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://aivodesign.site/quran/privacy.html</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://aivodesign.site/quran/terms.html</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://aivodesign.site/diary/privacy.html</loc><lastmod>2026-11-23</lastmod></url>
 </urlset>
