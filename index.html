@@ -23,45 +23,29 @@
 <link rel="stylesheet" href="site.css?v=3">
 <script>document.documentElement.classList.add('js')</script>
 <style>
-/* ── Первый экран: слова слева, справа веер из пяти квадратов-приложений */
-.hero{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,72px);align-items:center;padding:clamp(32px,5vw,80px) var(--m) clamp(72px,8vw,128px)}
-.hero h1{font-size:clamp(42px,6.4vw,112px);font-weight:800;letter-spacing:-.045em;line-height:.92}
+/* ── Первый экран: слева слова и список приложений, справа поле цвета приложения с его экраном */
+.hero{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;grid-template-areas:"t f" "l f";min-height:calc(100svh - 84px)}
+.htext{grid-area:t;padding:clamp(24px,4vw,64px) var(--m) 0}
+.hero h1{font-size:clamp(34px,4.4vw,76px);font-weight:800;letter-spacing:-.045em;line-height:.95}
 .hero h1 span{display:block}
-.hero .lead{font-size:21px;line-height:1.45;max-width:30em;margin-top:36px}
-.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:40px}
-.hero .nums{display:grid;grid-template-columns:repeat(3,max-content);gap:20px clamp(28px,4vw,64px);margin-top:clamp(48px,6vw,88px)}
-.hero .nums p{display:grid;gap:4px;font-size:var(--s-sm);color:var(--muted)}
-.hero .nums b{font-size:clamp(32px,3.2vw,48px);font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--ink)}
-.tilebox{justify-self:end;width:min(100%,540px)}
-.deck{position:relative;width:84%;aspect-ratio:1;margin:13% 0 0 0}
-.tile{position:absolute;inset:0;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;transition:transform .8s var(--ease);will-change:transform}
-.tile .sig{width:100%;height:100%}
-.tile[data-p="0"]{transform:none;z-index:5}
-.tile[data-p="1"]{transform:translate(5%,-4%) rotate(5deg) scale(.95);z-index:4}
-.tile[data-p="2"]{transform:translate(10%,-8%) rotate(10deg) scale(.9);z-index:3}
-.tile[data-p="3"]{transform:translate(14%,-11%) rotate(14deg) scale(.85);z-index:2}
-.tile[data-p="4"]{transform:translate(18%,-14%) rotate(18deg) scale(.8);z-index:1}
-.tile[data-p="0"] .sig use{clip-path:inset(0 0 0 0)}
-.js .tile[data-p="0"].draw .sig use{animation:draw 1.4s cubic-bezier(.6,0,.2,1) both}
-@keyframes draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-.picker{display:flex;justify-content:space-between;gap:10px;margin-top:28px}
-.picker button{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;padding:6px 0;font:500 var(--s-sm)/1.2 var(--font);color:var(--muted);cursor:pointer;border-radius:12px}
-.picker .sw{width:100%;max-width:60px;aspect-ratio:1;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;transition:transform .25s var(--ease)}
-.picker .sw .sig{width:100%;height:100%}
-.picker button:hover .sw{transform:translateY(-3px)}
-.picker button[aria-pressed=true]{color:var(--ink);font-weight:600}
-.picker button[aria-pressed=true] .sw{transform:scale(1.1)}
-.tilecap{margin-top:24px;font-size:var(--s-body);min-height:1.6em;text-align:center}
-.tilecap b{font-weight:600}
-
-/* ── Бегущая лента с названиями */
-.band{background:var(--ink);overflow:hidden;padding:clamp(20px,2.4vw,36px) 0}
-.track{display:flex;width:max-content;animation:mq 38s linear infinite}
-.band:hover .track{animation-play-state:paused}
-.track span{display:inline-flex;align-items:center;gap:.28em;padding-right:.9em;font-size:clamp(40px,6.4vw,104px);font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;color:var(--c)}
-.track .sq{width:.82em;height:.82em;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;flex:none}
-.track .sq .sig{width:100%;height:100%}
-@keyframes mq{to{transform:translateX(-50%)}}
+.hero .lead{font-size:21px;line-height:1.45;max-width:26em;margin-top:24px}
+.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:32px}
+.hlist{grid-area:l;list-style:none;margin:0;padding:clamp(28px,3vw,40px) var(--m) clamp(28px,3vw,40px);align-self:end}
+.hlist button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:44px auto 1fr;align-items:center;column-gap:18px;width:100%;padding:5px 0;border-radius:12px;font-family:var(--font)}
+.hlist button:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.hlist .sq{width:44px;height:44px;border-radius:22.5%;background:var(--c);color:#fff;display:grid;place-items:center;transition:transform .3s var(--ease)}
+.hlist .sq .sig{width:34px;height:34px}
+.hlist b{font-size:clamp(28px,2.5vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#8A8A84;transition:color .3s var(--ease)}
+.hlist .d{font-size:var(--s-body);color:var(--muted);padding-top:.3em}
+.hlist button:hover b{color:#5E5E59}.hlist button:hover .sq{transform:translateY(-2px)}
+.hlist button[aria-pressed=true] b{color:var(--ink)}
+.hlist button[aria-pressed=true] .sq{transform:scale(1.08)}
+.hfield{grid-area:f;position:relative;background:var(--scan);overflow:hidden;min-height:560px}
+.hv{position:absolute;inset:0;display:grid;place-items:center;background:var(--c);opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility 0s .5s}
+.hv.sel{opacity:1;visibility:visible;transition:opacity .5s var(--ease)}
+.hph{--h:min(76svh,680px);transform:translateY(28px) scale(.97);transition:transform .7s var(--ease)}
+.hv.sel .hph{transform:none}
+.hph .phone-frame{box-shadow:0 50px 90px -40px rgba(0,0,0,.5)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
 
 /* ── Приложения: весь раздел перекрашивается в цвет приложения, телефон держится слева */
 .apps{--ab:var(--scan);--ai:#04231C;--bb:#04231C;--bi:var(--scan);background:var(--ab);color:var(--ai);padding:clamp(72px,8vw,128px) var(--m) clamp(72px,8vw,120px);transition:background-color .7s var(--ease),color .7s var(--ease)}
@@ -72,7 +56,7 @@ html:not(.js) .apps{--ab:var(--bg);--ai:var(--ink);--bb:var(--ink);--bi:var(--bg
 .steps{grid-column:1/-1;display:flex;flex-direction:column;gap:112px}
 .step h3{font-size:clamp(52px,6.4vw,112px);font-weight:800;letter-spacing:-.05em;line-height:.92}
 .step .what{font-size:21px;line-height:1.45;margin-top:24px;max-width:25em}
-.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;margin:32px 0 0;font-size:var(--s-sm)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:10px 28px;margin:36px 0 0;font-size:var(--s-body)}
 .facts dt{opacity:.72}.facts dd{margin:0;font-weight:500}
 .step .go{margin-top:32px;display:inline-flex}
 .step .btn{background:var(--bb);color:var(--bi)}
@@ -226,9 +210,10 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
 
 /* ── Телефон и планшет */
 @media (max-width:899px){
-  .hero{grid-template-columns:1fr;gap:56px}
-  .tilebox{justify-self:start;width:min(100%,440px)}
-  .deck{width:80%}
+  .hero{grid-template-columns:1fr;grid-template-areas:"t" "f" "l";min-height:0}
+  .hfield{min-height:0;height:min(118vw,560px);margin-top:40px}
+  .hph{--h:min(104vw,500px)}
+  .hlist .d{display:none}
   .about .txt,.about .side{grid-column:1/-1}
   .show{min-height:auto;display:block;background:var(--bg)}
   .show>img{position:relative;top:0;height:70svh;clip-path:inset(7% 0 7% 0);margin-top:-4.9svh;object-position:60% 50%}
@@ -242,8 +227,8 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   .foot .places,.foot .cols{grid-column:1/-1}
   .foot .cols{grid-template-columns:1fr 1fr}
 }
-@media (max-width:420px){.about .txt{font-size:20px}.picker{gap:6px}.picker button{font-size:13px}.steps{gap:96px}}
-@media (prefers-reduced-motion:reduce){.track{animation:none}.show>img{transform:none}.js .tile .sig use{animation:none!important}}
+@media (max-width:420px){.about .txt{font-size:20px}.steps{gap:96px}}
+@media (prefers-reduced-motion:reduce){.show>img{transform:none}.hph{transform:none!important}}
 </style>
 </head>
 <body>
@@ -260,39 +245,62 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
 
 <main id="top">
 <section class="hero" aria-labelledby="h1">
-  <div>
-    <h1 id="h1" class="rise"><span>Одна роспись,</span> <span>пять приложений</span></h1>
-    <p class="lead rise" style="--i:1">Aivo Design — это я, Али Тажибаев, разработчик приложений. Делаю программы для мебельных цехов, для своих денег и для чтения Корана вместе.</p>
+  <div class="htext">
+    <h1 id="h1" class="rise"><span>Приложения под</span> <span>настоящие задачи</span></h1>
+    <p class="lead rise" style="--i:1">Я Али Тажибаев, разработчик. Сам придумываю, рисую и собираю каждое приложение.</p>
     <div class="acts rise" style="--i:2">
-      <a class="btn" href="#apps">Смотреть приложения</a>
-      <a class="link" href="#contact">Связаться</a>
-    </div>
-    <div class="nums rise" style="--i:3">
-      <p><b>5</b>приложений</p>
-      <p><b>3</b>языка</p>
-      <p><b>3</b>платформы</p>
+      <a class="btn" href="#order">Заказать приложение</a>
+      <a class="link" href="#apps">Все приложения</a>
     </div>
   </div>
-  <div class="tilebox rise" style="--i:2">
-    <div class="deck" id="deck" role="img" aria-label="Пять квадратов с росписью Aivo в цветах приложений">
-      <div class="tile" data-k="scan" data-p="0" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
-      <div class="tile" data-k="diary" data-p="1" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
-      <div class="tile" data-k="quran" data-p="2" style="--c:#0B3324;--f:#D9B45F"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
-      <div class="tile" data-k="pro" data-p="3" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
-      <div class="tile" data-k="cut" data-p="4" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></div>
-    </div>
-    <p class="tilecap" id="tilecap" aria-live="polite"><b>Aivo Scan</b> — мебель в 3D по QR-коду</p>
-    <div class="picker" role="group" aria-label="Выбрать приложение">
-      <button type="button" aria-pressed="true" data-k="scan" data-n="Aivo Scan" data-t="мебель в 3D по QR-коду"><span class="sw" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Scan</button>
-      <button type="button" aria-pressed="false" data-k="diary" data-n="Aivo Diary" data-t="деньги и дела голосом"><span class="sw" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Diary</button>
-      <button type="button" aria-pressed="false" data-k="quran" data-n="Aivo Quran" data-t="хатм с близкими"><span class="sw" style="--c:#0B3324;--f:#D9B45F"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Quran</button>
-      <button type="button" aria-pressed="false" data-k="pro" data-n="Aivo Pro" data-t="для мебельных студий"><span class="sw" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Pro</button>
-      <button type="button" aria-pressed="false" data-k="cut" data-n="Aivo Cut" data-t="распил для нескольких цехов"><span class="sw" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span>Cut</button>
-    </div>
+  <ul class="hlist rise" style="--i:3" aria-label="Выбрать приложение">
+      <li><button type="button" data-k="scan" aria-pressed="true" aria-controls="hv-scan"><span class="sq" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Scan</b><span class="d">Мебель в 3D по QR-коду</span></button></li>
+      <li><button type="button" data-k="diary" aria-pressed="false" aria-controls="hv-diary"><span class="sq" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Diary</b><span class="d">Деньги и дела голосом</span></button></li>
+      <li><button type="button" data-k="quran" aria-pressed="false" aria-controls="hv-quran"><span class="sq" style="--c:#0B3324"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Quran</b><span class="d">Хатм вместе с близкими</span></button></li>
+      <li><button type="button" data-k="pro" aria-pressed="false" aria-controls="hv-pro"><span class="sq" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Pro</b><span class="d">Мебельная студия в одном месте</span></button></li>
+      <li><button type="button" data-k="cut" aria-pressed="false" aria-controls="hv-cut"><span class="sq" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Cut</b><span class="d">Распил для нескольких цехов</span></button></li>
+  </ul>
+  <div class="hfield" aria-live="polite">
+    <div class="hv sel" id="hv-scan" data-k="scan" style="--c:#00D4AA"><div class="hph"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><img src="img/scr-model.jpg" width="600" height="1304" alt="Aivo Scan на телефоне: модель шкафа в 3D"></div></div></div></div></div></div>
+    <div class="hv" id="hv-diary" data-k="diary" style="--c:#4A90E2"><div class="hph"><div class="phone-frame lt" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-diary" data-ui>
+          <span class="m">Пятница, 21 ноября</span>
+          <span class="sum"><span class="sw2"><span class="a">48 850 сом</span><span class="b">48 250 сом</span></span></span>
+          <span class="today"><span class="sw2"><span class="a">Сегодня потрачено 1 250 сом</span><span class="b">Сегодня потрачено 1 850 сом</span></span></span>
+          <span class="say pop" style="--d:.5s">Хей, Aivo, добавь 600 за еду</span>
+          <ul><li class="pop" style="--d:1.3s"><b>Еда</b><span>−600</span></li><li><b>Такси</b><span>−250</span></li><li><b>Продукты</b><span>−1 000</span></li><li><b>Аванс</b><span class="plus">+15 000</span></li></ul>
+          <span class="mic"><i></i></span>
+        </span></div></div></div></div></div></div>
+    <div class="hv" id="hv-quran" data-k="quran" style="--c:#0B3324"><div class="hph"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-quran" data-ui>
+          <span class="m">Хатм семьи · 8 человек</span>
+          <img class="ic" src="img/quran-icon.jpg" width="600" height="600" alt="">
+          <span class="t"><span class="sw2" style="--d:1.5s"><span class="a">Прочитано 17 из 30</span><span class="b">Прочитано 18 из 30</span></span></span>
+          <span class="grid"><i class="d">1</i><i class="d">2</i><i class="d">3</i><i class="d">4</i><i class="d">5</i><i class="d">6</i><i class="d">7</i><i class="d">8</i><i class="d">9</i><i class="d">10</i><i class="d">11</i><i class="d">12</i><i class="d">13</i><i class="d">14</i><i class="d">15</i><i class="d">16</i><i class="d">17</i><i class="me">18</i><i class="">19</i><i class="">20</i><i class="">21</i><i class="">22</i><i class="">23</i><i class="">24</i><i class="">25</i><i class="">26</i><i class="">27</i><i class="">28</i><i class="">29</i><i class="">30</i></span>
+          <span class="m"><span class="sw2" style="--d:1.5s"><span class="a">Ваш джуз — 18. Осталось 13.</span><span class="b">Джуз 18 засчитан. Осталось 12.</span></span></span>
+          <span class="bt">Закончил джуз</span>
+        </span></div></div></div></div></div></div>
+    <div class="hv" id="hv-pro" data-k="pro" style="--c:#1F1F23"><div class="hph"><div class="phone-frame lt" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-pro" data-ui>
+          <span class="m">Студия · 6 заказов в работе</span>
+          <span class="t">Заказы</span>
+          <ul>
+            <li><div><b>Кухня 3,2 м</b><span class="ok">в срок</span></div><span class="bar"><i class="d" style="--n:1"></i><i class="d" style="--n:2"></i><i class="d" style="--n:3"></i><i></i><i></i></span><div><span class="m">Цех</span><span class="m">до 12 дек</span></div></li>
+            <li><div><b>Шкаф-купе</b><span class="late">опаздывает</span></div><span class="bar"><i class="d" style="--n:4"></i><i class="d" style="--n:5"></i><i></i><i></i><i></i></span><div><span class="m">Конструктор</span><span class="m">до 5 дек</span></div></li>
+            <li><div><b>Прихожая</b><span class="ok">в срок</span></div><span class="bar"><i class="d" style="--n:6"></i><i class="d" style="--n:7"></i><i class="d" style="--n:8"></i><i class="d" style="--n:9"></i><i></i></span><div><span class="m">Установка</span><span class="m">оплата 60%</span></div></li>
+            <li><div><b>Детская</b><span class="ok">в срок</span></div><span class="bar"><i class="d" style="--n:10"></i><i></i><i></i><i></i><i></i></span><div><span class="m">Замер</span><span class="m">до 20 дек</span></div></li>
+          </ul>
+          <span class="sumrow"><span class="m">Поступило за ноябрь</span><b>412 000 сом</b></span>
+        </span></div></div></div></div></div></div>
+    <div class="hv" id="hv-cut" data-k="cut" style="--c:#E2703A"><div class="hph"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-cut" data-ui>
+          <span class="m">Сегодня · 2 станка</span>
+          <span class="t">Очередь распила</span>
+          <span class="mach"><div>Станок 1<br>работает</div><div class="m2"><span class="sw2" style="--d:1.2s"><span class="a">Станок 2<br>свободен</span><span class="b">Станок 2<br>работает</span></span></div></span>
+          <ul>
+            <li><span><b>№ 1482</b><br><span class="m">14 листов · белый</span></span><span class="st go">пилится</span></li>
+            <li><span><b>№ 1483</b><br><span class="m">6 листов · дуб</span></span><span class="sw2" style="--d:1.2s"><span class="a st q">в очереди</span><span class="b st go">пилится</span></span></li>
+            <li><span><b>№ 1479</b><br><span class="m">9 листов · графит</span></span><span class="st ok">к выдаче</span></li>
+          </ul>
+        </span></div></div></div></div></div></div>
   </div>
 </section>
-
-<div class="band" aria-hidden="true"><div class="track"><span style="--c:#00D4AA"><span class="sq" style="--c:#00D4AA"><svg class="sig"><use href="#s"/></svg></span>Aivo Scan</span><span style="--c:#4A90E2"><span class="sq" style="--c:#4A90E2"><svg class="sig"><use href="#s"/></svg></span>Aivo Diary</span><span style="--c:#D9B45F"><span class="sq" style="--c:#0B3324;--f:#D9B45F"><svg class="sig"><use href="#s"/></svg></span>Aivo Quran</span><span style="--c:#F2F2F0"><span class="sq" style="--c:#F2F2F0;--f:#1F1F23"><svg class="sig"><use href="#s"/></svg></span>Aivo Pro</span><span style="--c:#E2703A"><span class="sq" style="--c:#E2703A"><svg class="sig"><use href="#s"/></svg></span>Aivo Cut</span><span style="--c:#00D4AA"><span class="sq" style="--c:#00D4AA"><svg class="sig"><use href="#s"/></svg></span>Aivo Scan</span><span style="--c:#4A90E2"><span class="sq" style="--c:#4A90E2"><svg class="sig"><use href="#s"/></svg></span>Aivo Diary</span><span style="--c:#D9B45F"><span class="sq" style="--c:#0B3324;--f:#D9B45F"><svg class="sig"><use href="#s"/></svg></span>Aivo Quran</span><span style="--c:#F2F2F0"><span class="sq" style="--c:#F2F2F0;--f:#1F1F23"><svg class="sig"><use href="#s"/></svg></span>Aivo Pro</span><span style="--c:#E2703A"><span class="sq" style="--c:#E2703A"><svg class="sig"><use href="#s"/></svg></span>Aivo Cut</span></div></div>
 
 <section class="apps" id="apps" aria-labelledby="apps-h">
   <h2 id="apps-h" class="rise">Приложения</h2>
@@ -301,7 +309,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
     <div class="steps">
 
       <article class="step" data-ab="#00D4AA" data-ai="#04231C" data-bb="#04231C" data-bi="#00D4AA">
-        <figure class="fig" style="--c:#00D4AA"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><img src="img/scr-model.jpg" width="600" height="1304" alt="Aivo Scan на телефоне: модель шкафа в 3D" loading="lazy"></div></div></div></div></figure>
+        <figure class="fig" style="--c:#00D4AA"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><img src="img/scr-sel.jpg" width="600" height="1304" alt="Aivo Scan: выбранная деталь и её размеры" loading="lazy"></div></div></div></div></figure>
         <h3 class="rise">Aivo Scan</h3>
         <p class="what rise" style="--i:1">Сборщик наводит телефон на QR-код детали и видит шкаф целиком: где эта деталь стоит и как её собрать.</p>
         <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>мебельные цеха и сборщики</dd><dt>Где</dt><dd>iPhone, Android, браузер</dd><dt>Сейчас</dt><dd>работает, есть в App Store</dd></dl>
@@ -450,20 +458,20 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
 <script>
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Веер: выбранное приложение выходит вперёд, остальные уходят назад по порядку
+  // Первый экран: выбор приложения в списке меняет поле справа; сам листает, пока посетитель не выбрал
   var order=['scan','diary','quran','pro','cut'],cur=0,auto=null;
-  var tiles={},btns=document.querySelectorAll('.picker button'),cap=document.getElementById('tilecap');
-  document.querySelectorAll('.tile').forEach(function(t){tiles[t.dataset.k]=t});
+  var hb=[].slice.call(document.querySelectorAll('.hlist button')),hv={};
+  document.querySelectorAll('.hv').forEach(function(v){hv[v.dataset.k]=v});
   function show(i,user){
     cur=(i+order.length)%order.length;
-    order.forEach(function(k,j){var t=tiles[k];var p=(j-cur+order.length)%order.length;t.dataset.p=p;t.classList.toggle('draw',p===0&&!reduce)});
-    var t0=tiles[order[cur]];t0.classList.remove('draw');void t0.offsetWidth;if(!reduce)t0.classList.add('draw');
-    btns.forEach(function(b){var on=b.dataset.k===order[cur];b.setAttribute('aria-pressed',on);if(on)cap.innerHTML='<b>'+b.dataset.n+'</b> — '+b.dataset.t});
+    hb.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===order[cur])});
+    order.forEach(function(k,j){hv[k].classList.toggle('sel',j===cur)});
+    var ui=hv[order[cur]].querySelector('.ui');if(ui){ui.classList.remove('play');void ui.offsetWidth;ui.classList.add('play')}
     if(user&&auto){clearInterval(auto);auto=null}
   }
-  btns.forEach(function(b){b.addEventListener('click',function(){show(order.indexOf(b.dataset.k),true)})});
+  hb.forEach(function(b){b.addEventListener('click',function(){show(order.indexOf(b.dataset.k),true)})});
   show(0);
-  if(!reduce){auto=setInterval(function(){if(!document.hidden)show(cur+1)},3200)}
+  if(!reduce){auto=setInterval(function(){if(!document.hidden)show(cur+1)},4200)}
   // Раздел «Приложения»: телефон в рамке, цвет раздела — цвет текущего приложения
   var apps=document.querySelector('.apps'),frame=document.querySelector('.frame'),steps=[].slice.call(document.querySelectorAll('.step'));
   steps.forEach(function(s,i){var f=s.querySelector('.fig').cloneNode(true);f.querySelectorAll('[loading]').forEach(function(im){im.removeAttribute('loading')});if(i===0)f.classList.add('on');frame.appendChild(f)});
