@@ -20,7 +20,9 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/onest.css">
-<link rel="stylesheet" href="site.css?v=3">
+<link rel="stylesheet" href="site.css?v=4">
+<link rel="stylesheet" href="js/stage.css?v=1">
+<link rel="stylesheet" href="motion.css?v=1">
 <script>document.documentElement.classList.add('js')</script>
 <style>
 /* ── Первый экран: слева слова и список приложений, справа поле цвета приложения с его экраном */
@@ -41,10 +43,6 @@
 .hlist button[aria-pressed=true] b{color:var(--ink)}
 .hlist button[aria-pressed=true] .sq{transform:scale(1.08)}
 .hfield{grid-area:f;position:relative;background:var(--scan);overflow:hidden;min-height:560px}
-.hv{position:absolute;inset:0;display:grid;place-items:center;background:var(--c);opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility 0s .5s}
-.hv.sel{opacity:1;visibility:visible;transition:opacity .5s var(--ease)}
-.hph{--h:min(76svh,680px);transform:translateY(28px) scale(.97);transition:transform .7s var(--ease)}
-.hv.sel .hph{transform:none}
 .hph .phone-frame{box-shadow:0 50px 90px -40px rgba(0,0,0,.5)} /* taste-skill-ignore: рамка iPhone с aivoscan.work */
 
 /* ── Приложения: весь раздел перекрашивается в цвет приложения, телефон держится слева */
@@ -148,9 +146,9 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
 @media (prefers-reduced-motion:reduce){.js .ui *{animation:none!important}.js .ui .pop,.js .ui .sw2 .b{opacity:1}.js .ui .sw2 .a{opacity:0}.js .ui-pro .bar i.d{transform:none}}
 
 /* ── Aivo Scan крупно: снимок во весь экран, карточка в одну колонку */
-.show{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden;background:#0d0f12}
-.show>img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;object-position:62% 50%;transform:scale(1.08);transition:transform 2.4s var(--ease)}
-.show.in>img{transform:none}
+.show{background:#0d0f12}
+.show>.scene-stage{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden}
+.show .scene-stage>img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
 .show .card{position:relative;margin-left:var(--m);width:clamp(300px,26vw,400px);background:var(--ink);color:var(--bg);padding:36px;display:flex;flex-direction:column;gap:14px}
 .show .card h2{font-size:var(--s-h3)}
 .show .card .sub{color:#D6D3CE}
@@ -215,8 +213,9 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   .hph{--h:min(104vw,500px)}
   .hlist .d{display:none}
   .about .txt,.about .side{grid-column:1/-1}
-  .show{min-height:auto;display:block;background:var(--bg)}
-  .show>img{position:relative;top:0;height:70svh;clip-path:inset(7% 0 7% 0);margin-top:-4.9svh;object-position:60% 50%}
+  .show{background:var(--bg)}
+  .show>.scene-stage{min-height:auto;display:block}
+  .show .scene-stage>img{position:relative;top:0;height:70svh;clip-path:inset(7% 0 7% 0);margin-top:-4.9svh;object-position:60% 50%}
   .show .card{margin:-80px var(--m) 0;width:auto}
   .contact .ctxt,.vcard{grid-column:1/-1}
   .order .ohead,.osteps{grid-column:1/-1;position:static}
@@ -228,7 +227,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   .foot .cols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:420px){.about .txt{font-size:20px}.steps{gap:96px}}
-@media (prefers-reduced-motion:reduce){.show>img{transform:none}.hph{transform:none!important}}
+
 </style>
 </head>
 <body>
@@ -246,19 +245,19 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
 <main id="top">
 <section class="hero" aria-labelledby="h1">
   <div class="htext">
-    <h1 id="h1" class="rise"><span>Приложения под</span> <span>настоящие задачи</span></h1>
-    <p class="lead rise" style="--i:1">Я Али Тажибаев, разработчик. Сам придумываю, рисую и собираю каждое приложение.</p>
-    <div class="acts rise" style="--i:2">
+    <h1 id="h1"><span class="ln"><span>Приложения под</span></span> <span class="ln" style="--i:1"><span style="--i:1">настоящие задачи</span></span></h1>
+    <p class="lead" data-load style="--d:380ms">Я Али Тажибаев, разработчик. Сам придумываю, рисую и собираю каждое приложение.</p>
+    <div class="acts" data-load style="--d:460ms">
       <a class="btn" href="#order">Заказать приложение</a>
       <a class="link" href="#apps">Все приложения</a>
     </div>
   </div>
-  <ul class="hlist rise" style="--i:3" aria-label="Выбрать приложение">
-      <li><button type="button" data-k="scan" aria-pressed="true" aria-controls="hv-scan"><span class="sq" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Scan</b><span class="d">Мебель в 3D по QR-коду</span></button></li>
-      <li><button type="button" data-k="diary" aria-pressed="false" aria-controls="hv-diary"><span class="sq" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Diary</b><span class="d">Деньги и дела голосом</span></button></li>
-      <li><button type="button" data-k="quran" aria-pressed="false" aria-controls="hv-quran"><span class="sq" style="--c:#0B3324"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Quran</b><span class="d">Хатм вместе с близкими</span></button></li>
-      <li><button type="button" data-k="pro" aria-pressed="false" aria-controls="hv-pro"><span class="sq" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Pro</b><span class="d">Мебельная студия в одном месте</span></button></li>
-      <li><button type="button" data-k="cut" aria-pressed="false" aria-controls="hv-cut"><span class="sq" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Cut</b><span class="d">Распил для нескольких цехов</span></button></li>
+  <ul class="hlist" aria-label="Выбрать приложение">
+      <li style="--i:0"><button type="button" data-k="scan" aria-pressed="true" aria-controls="hv-scan"><span class="sq" style="--c:#00D4AA"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Scan</b><span class="d">Мебель в 3D по QR-коду</span></button></li>
+      <li style="--i:1"><button type="button" data-k="diary" aria-pressed="false" aria-controls="hv-diary"><span class="sq" style="--c:#4A90E2"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Diary</b><span class="d">Деньги и дела голосом</span></button></li>
+      <li style="--i:2"><button type="button" data-k="quran" aria-pressed="false" aria-controls="hv-quran"><span class="sq" style="--c:#0B3324"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Quran</b><span class="d">Хатм вместе с близкими</span></button></li>
+      <li style="--i:3"><button type="button" data-k="pro" aria-pressed="false" aria-controls="hv-pro"><span class="sq" style="--c:#1F1F23"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Pro</b><span class="d">Мебельная студия в одном месте</span></button></li>
+      <li style="--i:4"><button type="button" data-k="cut" aria-pressed="false" aria-controls="hv-cut"><span class="sq" style="--c:#E2703A"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Cut</b><span class="d">Распил для нескольких цехов</span></button></li>
   </ul>
   <div class="hfield" aria-live="polite">
     <div class="hv sel" id="hv-scan" data-k="scan" style="--c:#00D4AA"><div class="hph"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><img src="img/scr-model.jpg" width="600" height="1304" alt="Aivo Scan на телефоне: модель шкафа в 3D"></div></div></div></div></div></div>
@@ -302,13 +301,20 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   </div>
 </section>
 
+<section class="scene sigscene" data-scene="signature" aria-labelledby="sig-h">
+  <div class="scene-stage">
+    <h2 id="sig-h" class="sig-h">Одна роспись —<br>пять приложений</h2>
+    <div class="sig-big" aria-hidden="true"><svg class="sig"><use href="#s"/></svg></div>
+    <ul class="sig-row"><li><a href="#app-scan"><span class="tl" style="--c:#00D4AA;"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Scan<span class="d">Мебель в 3D по QR-коду</span></b></a></li><li><a href="#app-diary"><span class="tl" style="--c:#4A90E2;"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Diary<span class="d">Деньги и дела голосом</span></b></a></li><li><a href="#app-quran"><span class="tl" style="--c:#0B3324;--f:#D9B45F;"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Quran<span class="d">Хатм с близкими</span></b></a></li><li><a href="#app-pro"><span class="tl" style="--c:#1F1F23;"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Pro<span class="d">Мебельная студия</span></b></a></li><li><a href="#app-cut"><span class="tl" style="--c:#E2703A;"><svg class="sig" aria-hidden="true"><use href="#s"/></svg></span><b>Aivo Cut<span class="d">Распил для цехов</span></b></a></li></ul>
+  </div>
+</section>
 <section class="apps" id="apps" aria-labelledby="apps-h">
   <h2 id="apps-h" class="rise">Приложения</h2>
   <div class="run">
     <div class="frame" aria-hidden="true"></div>
     <div class="steps">
 
-      <article class="step" data-ab="#00D4AA" data-ai="#04231C" data-bb="#04231C" data-bi="#00D4AA">
+      <article class="step" id="app-scan" data-ab="#00D4AA" data-ai="#04231C" data-bb="#04231C" data-bi="#00D4AA">
         <figure class="fig" style="--c:#00D4AA"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><img src="img/scr-sel.jpg" width="600" height="1304" alt="Aivo Scan: выбранная деталь и её размеры" loading="lazy"></div></div></div></div></figure>
         <h3 class="rise">Aivo Scan</h3>
         <p class="what rise" style="--i:1">Сборщик наводит телефон на QR-код детали и видит шкаф целиком: где эта деталь стоит и как её собрать.</p>
@@ -316,7 +322,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
         <a class="btn go rise" style="--i:3" href="https://aivoscan.work">Открыть aivoscan.work</a>
       </article>
 
-      <article class="step" data-ab="#4A90E2" data-ai="#08172E" data-bb="#08172E" data-bi="#FFFFFF">
+      <article class="step" id="app-diary" data-ab="#4A90E2" data-ai="#08172E" data-bb="#08172E" data-bi="#FFFFFF">
         <figure class="fig" style="--c:#4A90E2"><div class="phone-frame lt" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-diary" data-ui>
           <span class="m">Пятница, 21 ноября</span>
           <span class="sum"><span class="sw2"><span class="a">48 850 сом</span><span class="b">48 250 сом</span></span></span>
@@ -330,7 +336,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
         <dl class="facts rise" style="--i:2"><dt>Для кого</dt><dd>для себя и семьи</dd><dt>Языки</dt><dd>русский, кыргызский, турецкий</dd><dt>Сейчас</dt><dd>проверка в TestFlight и Google Play</dd></dl>
       </article>
 
-      <article class="step" data-ab="#0B3324" data-ai="#EBDDB0" data-bb="#D9B45F" data-bi="#0B3324">
+      <article class="step" id="app-quran" data-ab="#0B3324" data-ai="#EBDDB0" data-bb="#D9B45F" data-bi="#0B3324">
         <figure class="fig" style="--c:#0B3324"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-quran" data-ui>
           <span class="m">Хатм семьи · 8 человек</span>
           <img class="ic" src="img/quran-icon.jpg" width="600" height="600" alt="" loading="lazy">
@@ -345,7 +351,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
         <a class="btn go rise" style="--i:3" href="quran/">Страница Aivo Quran</a>
       </article>
 
-      <article class="step" data-ab="#1F1F23" data-ai="#F2F2F0" data-bb="#F2F2F0" data-bi="#1F1F23">
+      <article class="step" id="app-pro" data-ab="#1F1F23" data-ai="#F2F2F0" data-bb="#F2F2F0" data-bi="#1F1F23">
         <figure class="fig" style="--c:#1F1F23"><div class="phone-frame lt" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-pro" data-ui>
           <span class="m">Студия · 6 заказов в работе</span>
           <span class="t">Заказы</span>
@@ -363,7 +369,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
         <a class="btn go rise" style="--i:3" href="#contact">Хочу для своей студии</a>
       </article>
 
-      <article class="step" data-ab="#E2703A" data-ai="#1F0D04" data-bb="#1F0D04" data-bi="#FFFFFF">
+      <article class="step" id="app-cut" data-ab="#E2703A" data-ai="#1F0D04" data-bb="#1F0D04" data-bi="#FFFFFF">
         <figure class="fig" style="--c:#E2703A"><div class="phone-frame" data-ui><span class="pf-btn l pf-action"></span><span class="pf-btn l pf-vol1"></span><span class="pf-btn l pf-vol2"></span><span class="pf-btn r pf-side"></span><span class="pf-btn r pf-cam"></span><div class="pf-bezel"><div class="pf-screen"><span class="phone-island"></span><div class="pf-status" aria-hidden="true"><span>9:41</span><i><svg viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 4c-1.8 0-3.4.7-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.9-2a2.8 2.8 0 0 0-3.8 0z"/></svg><svg class="bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="2" y="2" width="20" height="9" rx="2.2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" fill="currentColor" fill-opacity=".45"/></svg></i></div><span class="pf-home"></span><div class="shots"><span class="ui ui-cut" data-ui>
           <span class="m">Сегодня · 2 станка</span>
           <span class="t">Очередь распила</span>
@@ -383,20 +389,22 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   </div>
 </section>
 
-<section class="show" aria-labelledby="show-h">
+<section class="show scene" data-scene="window" aria-labelledby="show-h">
+  <div class="scene-stage">
   <img src="img/app-explode.jpg" width="1600" height="1000" alt="Aivo Scan: шкаф разобран на детали «взрывом»" loading="lazy">
-  <div class="card rise">
+  <div class="card">
     <h2 id="show-h">Aivo Scan в деле</h2>
     <p class="sub">Шкаф из 134 деталей разобран «взрывом»: видно каждую.</p>
     <p>Код детали, размер, кромка — по одному касанию.</p>
     <a class="btn" href="https://aivoscan.work">Попробовать</a>
+  </div>
   </div>
 </section>
 
 <section class="about" id="about" aria-labelledby="about-h">
   <h2 id="about-h" class="rise">Обо мне</h2>
   <div class="txt">
-    <p class="rise">Я разработчик программного обеспечения. Делаю приложения под настоящие задачи людей и бизнеса.</p>
+    <p data-fill>Я разработчик программного обеспечения. Делаю приложения под настоящие задачи людей и бизнеса.</p>
     <p class="rise" style="--i:1">Сам придумываю, рисую и собираю каждое приложение. Проверяю с теми, кто будет им пользоваться, и только потом выпускаю.</p>
   </div>
   <div class="side">
@@ -424,7 +432,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   <div class="ctxt">
     <h2 id="contact-h">Связаться</h2>
     <p style="--i:1">Нужно приложение, вопрос по Aivo Scan или Aivo Pro — пишите. Отвечаю сам, по-русски и по-кыргызски.</p>
-    <a class="phone" style="--i:2" href="tel:+996990551884">+996 990 551 884</a>
+    <a class="phone" data-roll href="tel:+996990551884">+996 990 551 884</a>
   </div>
   <div class="vcard" style="--i:1">
     <div class="rows">
@@ -462,11 +470,18 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   var order=['scan','diary','quran','pro','cut'],cur=0,auto=null;
   var hb=[].slice.call(document.querySelectorAll('.hlist button')),hv={};
   document.querySelectorAll('.hv').forEach(function(v){hv[v.dataset.k]=v});
+  var started=false;
   function show(i,user){
-    cur=(i+order.length)%order.length;
-    hb.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===order[cur])});
-    order.forEach(function(k,j){hv[k].classList.toggle('sel',j===cur)});
-    var ui=hv[order[cur]].querySelector('.ui');if(ui){ui.classList.remove('play');void ui.offsetWidth;ui.classList.add('play')}
+    var n=(i+order.length)%order.length,old=hv[order[cur]],nw=hv[order[n]];
+    hb.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===order[n])});
+    if(started&&n!==cur){
+      order.forEach(function(k){hv[k].classList.remove('prev')});
+      old.classList.remove('sel','wipe');old.classList.add('prev');
+      nw.classList.remove('wipe');void nw.offsetWidth;nw.classList.add('sel','wipe');
+      nw.addEventListener('animationend',function h(e){if(e.target!==nw)return;old.classList.remove('prev');nw.removeEventListener('animationend',h)});
+    }else{nw.classList.add('sel')}
+    started=true;cur=n;
+    var ui=nw.querySelector('.ui');if(ui){ui.classList.remove('play');void ui.offsetWidth;ui.classList.add('play')}
     if(user&&auto){clearInterval(auto);auto=null}
   }
   hb.forEach(function(b){b.addEventListener('click',function(){show(order.indexOf(b.dataset.k),true)})});
@@ -481,7 +496,7 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=steps.indexOf(e.target);for(var k=0;k<figs.length;k++)figs[k].classList.toggle('on',k===i);paint(e.target);play(figs[i].querySelector('.ui'));play(e.target.querySelector('.fig .ui'))}})},{rootMargin:'-45% 0px -45% 0px'});
   steps.forEach(function(s){io.observe(s)});
   // Появление частей разделов
-  var els=document.querySelectorAll('.rise, .show');
+  var els=document.querySelectorAll('.rise');
   if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
   var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
   els.forEach(function(e){io2.observe(e)});
@@ -489,5 +504,10 @@ html:not(.js) .ui .sw2 .a{visibility:hidden}
   var tick=false;addEventListener('scroll',function(){if(tick)return;tick=true;requestAnimationFrame(function(){tick=false;els.forEach(function(e){if(!e.classList.contains('in')&&e.getBoundingClientRect().top<innerHeight){e.classList.add('in');io2.unobserve(e)}})})},{passive:true});
 })();
 </script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/lenis.min.js"></script>
+<script src="js/stage.js?v=1"></script>
+<script src="js/motion.js?v=1"></script>
 </body>
 </html>

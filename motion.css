@@ -1,0 +1,112 @@
+/* Aivo Design — движение. Всё скрытое прячется только при .js и только если человек не просил «меньше движения»;
+   без скрипта и при «меньше движения» страница сразу в готовом виде. */
+:root{
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-expo:cubic-bezier(.16,1,.3,1);
+  --ease-in-out:cubic-bezier(.76,0,.24,1);
+  --ease-soft:cubic-bezier(.33,1,.68,1);
+}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Строка, которая выезжает из-под своей линии */
+.ln{display:block;overflow:clip;padding-bottom:.1em;margin-bottom:-.1em}
+.ln>span{display:block}
+
+/* ── Первый экран: заголовок, слова, список, поле приложения — всё на месте за 1,2 с */
+.hv{position:absolute;inset:0;display:grid;place-items:center;background:var(--c);visibility:hidden;z-index:0}
+.hv.sel{visibility:visible;z-index:2}
+.hv.prev{visibility:visible;z-index:1}
+.hph{--h:min(76svh,680px)}
+@media (prefers-reduced-motion:no-preference){
+  .js .hero h1 .ln>span{transform:translateY(105%);animation:m-up .9s var(--ease-expo) forwards;animation-delay:calc(120ms + var(--i,0)*100ms)}
+  .js .hero [data-load]{opacity:0;transform:translateY(14px);animation:m-rise .6s var(--ease-out) forwards;animation-delay:var(--d)}
+  .js .hlist li{opacity:0;transform:translateY(18px);animation:m-rise .6s var(--ease-out) forwards;animation-delay:calc(560ms + var(--i,0)*60ms)}
+  .js .hfield{clip-path:inset(100% 0 0 0);animation:m-open 1.05s var(--ease-in-out) 120ms forwards}
+  .js .hfield .hv.sel .hph{transform:translateY(14%) scale(1.04);animation:m-settle 1.2s var(--ease-expo) 380ms forwards}
+  /* смена приложения: новый цвет поднимается снизу шторкой, телефон въезжает следом, старый уходит вверх */
+  .js .hv.sel.wipe{animation:m-open .8s var(--ease-in-out) both}
+  .js .hv.sel.wipe .hph{animation:m-phone 1s var(--ease-expo) both}
+  .js .hv.prev .hph{animation:m-leave .8s var(--ease-in-out) both}
+}
+@keyframes m-up{to{transform:none}}
+@keyframes m-rise{to{opacity:1;transform:none}}
+@keyframes m-open{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+@keyframes m-settle{to{transform:none}}
+@keyframes m-phone{from{transform:translateY(26%)}to{transform:none}}
+@keyframes m-leave{to{transform:translateY(-10%) scale(.94);opacity:.5}}
+.hlist .sq{transition:transform .35s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.hlist button:hover .sq{transform:translateY(-3px) rotate(-4deg)}}
+.hlist button:active .sq{transform:scale(.92)}
+
+/* ── Сцена «Роспись»: готовый вид (без движения) — заголовок и пять плиток */
+.sigscene{background:var(--bg)}
+.sigscene .scene-stage{padding:clamp(96px,11vw,176px) var(--m) clamp(72px,8vw,120px);display:grid;gap:clamp(40px,5vw,72px)}
+.sig-h{font-size:var(--s-h2);font-weight:800;letter-spacing:-.045em;line-height:.95}
+.sig-big{display:none}
+.sig-row{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,1.6vw,24px)}
+.sig-row a{display:grid;gap:14px;text-decoration:none;color:var(--ink)}
+.sig-row .tl{aspect-ratio:1;border-radius:22.5%;background:var(--c);color:var(--f,#fff);display:grid;place-items:center;transition:transform .4s var(--ease-out)}
+.sig-row .tl .sig{width:100%;height:100%}
+.sig-row b{font-size:clamp(18px,1.9vw,28px);font-weight:800;letter-spacing:-.035em;line-height:1.1}
+.sig-row span.d{display:block;font-size:var(--s-sm);font-weight:400;color:var(--muted);letter-spacing:0;margin-top:4px}
+@media (hover:hover) and (pointer:fine){.sig-row a:hover .tl{transform:translateY(-6px)}}
+@media (max-width:767px){.sig-row{grid-template-columns:repeat(3,1fr);row-gap:28px}.sig-row span.d{display:none}}
+/* живая сцена: роспись пишется на весь экран, потом рассыпается на пять приложений */
+.sigscene.is-live .scene-stage{display:block;padding:0}
+.sigscene.is-live .sig-h{position:absolute;left:var(--m);right:var(--m);top:clamp(32px,7svh,88px);z-index:3}
+.sigscene.is-live .tl{transition:none}
+.sigscene.is-live .sig-big{display:block;position:absolute;left:50%;top:56%;width:min(92svh,84vw);aspect-ratio:1;translate:-50% -50%;color:var(--ink);z-index:1}
+.sigscene.is-live .sig-big .sig{width:100%;height:100%}
+.sigscene.is-live .sig-row{position:absolute;left:var(--m);right:var(--m);bottom:clamp(40px,9svh,112px);z-index:2}
+@media (max-width:767px){.sigscene.is-live .sig-row{bottom:clamp(32px,8svh,72px)}}
+
+/* ── Приложения: телефон в рамке меняется — новый выезжает снизу, старый уходит вверх */
+@media (min-width:900px) and (prefers-reduced-motion:no-preference){
+  .js .frame .fig{opacity:0;transform:translateY(90px) scale(.96);transition:opacity .45s var(--ease-out),transform 1s var(--ease-expo)}
+  .js .frame .fig:not(.on){transform:translateY(-60px) scale(.96);transition:opacity .3s ease,transform .5s var(--ease-in-out),visibility 0s .5s}
+  .js .frame .fig.on{opacity:1;transform:none}
+}
+
+/* Заголовки разделов выезжают из-под строки; абзацы и детали — следом, каждый по-своему */
+@media (prefers-reduced-motion:no-preference){
+  .js .mk .ln>span{transform:translateY(108%);transition:transform 1s var(--ease-expo) calc(var(--i,0)*90ms)}
+  .js .mk.in .ln>span{transform:none}
+  .js .step .facts dt,.js .step .facts dd{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease-out),transform .6s var(--ease-out)}
+  .js .step.in .facts dt,.js .step.in .facts dd{opacity:1;transform:none}
+  .js .step.in .facts :nth-child(n+3){transition-delay:.08s}.js .step.in .facts :nth-child(n+5){transition-delay:.16s}
+  .js .about .pics img{clip-path:inset(100% 0 0 0);transition:clip-path .9s var(--ease-in-out)}
+  .js .about .pics img+img{transition-delay:.12s}
+  .js .about .pics.in img{clip-path:inset(0)}
+  .js .about .stores span{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease-out),transform .6s var(--ease-out)}
+  .js .about .stores.in span{opacity:1;transform:none}
+  .js .about .stores.in span:nth-child(2){transition-delay:.07s}.js .about .stores.in span:nth-child(3){transition-delay:.14s}
+  .js .osteps li p{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease-out) .15s,transform .8s var(--ease-out) .15s}
+  .js .osteps li.in p{opacity:1;transform:none}
+  .js .vcard{opacity:0;transform:translateY(28px);transition:opacity .5s var(--ease-out),transform .8s var(--ease-expo)}
+  .js .vcard.in{opacity:1;transform:none}
+}
+
+/* «Обо мне»: первая фраза наливается чернилами по мере прокрутки (с 45%) */
+.fill-w{display:inline}
+
+/* Номер телефона: цифры прокручиваются до своих значений */
+.roll__d{display:inline-flex;font-variant-numeric:tabular-nums}
+.roll__col{display:inline-block;height:1em;line-height:1;overflow:clip;vertical-align:top}
+.roll__strip{display:flex;flex-direction:column;transform:translateY(calc(var(--d)*-1em))}
+.roll__strip>span{height:1em}
+@media (prefers-reduced-motion:no-preference){
+  .js .roll:not(.in) .roll__strip{transform:none}
+  .js .roll.in .roll__strip{transition:transform 1.2s var(--ease-expo) calc(var(--i)*45ms)}
+}
+
+/* ── «Aivo Scan в деле»: окно в середине раскрывается на весь экран */
+.show.is-live .scene-stage>img{will-change:clip-path,transform}
+
+/* ── Подвал выезжает из-под страницы, имя растёт */
+html.curtain main{position:relative;z-index:1;background:var(--bg)}
+html.curtain .foot{position:sticky;bottom:0;z-index:0}
+.foot .name{transform-origin:0 100%}
+
+/* Кнопки отвечают на нажатие */
+.btn{transition:transform .14s var(--ease-out),background-color .18s ease,color .18s ease}
+.btn:active{transform:scale(.97)}

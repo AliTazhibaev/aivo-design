@@ -46,3 +46,11 @@ p{margin:0}
   .js .rise{opacity:1;transform:none;transition:none}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* Переходы между страницами сайта: старая гаснет, новая поднимается (браузер сам, без библиотек) */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-leave .2s cubic-bezier(.55,.055,.675,.19) both}
+::view-transition-new(root){animation:vt-arrive .42s cubic-bezier(.22,1,.36,1) 60ms both}
+@keyframes vt-leave{to{opacity:0}}
+@keyframes vt-arrive{from{opacity:0;transform:translateY(16px)}}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
